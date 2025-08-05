@@ -1,11 +1,15 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
 #include "shader.h"
 #include "stb_image.h"
 
 using namespace std;
+using namespace glm;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -140,6 +144,14 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+
+		// transform
+		mat4 trans = mat4(1.0f);
+		trans = translate(trans, vec3(0.5, -0.5, 0.0f));
+		trans = rotate(trans, (float)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
+
+		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, value_ptr(trans));
 
 		float timeValue = glfwGetTime();
 		float greenValue = sin(timeValue) / 2.0f + 0.5f;
