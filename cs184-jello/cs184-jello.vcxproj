@@ -19,15 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\glad.c" />
-    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="glad.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\shader.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\shaders\shader.fs" />
-    <None Include="..\src\shaders\shader.vs" />
+    <None Include="shaders\shader.fs" />
+    <None Include="shaders\shader.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
