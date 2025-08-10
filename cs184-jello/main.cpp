@@ -223,11 +223,26 @@ int main() {
 
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
+		vec3 lightColor;
+		lightColor.x = sin(glfwGetTime() * 2.0f);
+		lightColor.y = sin(glfwGetTime() * 0.7f);
+		lightColor.z = sin(glfwGetTime() * 1.3f);
+
+		vec3 diffuseColor = lightColor * vec3(0.5f);
+		vec3 ambientColor = diffuseColor * vec3(0.2f);
+
 		ourShader.use();
 		ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-		ourShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-		ourShader.setVec3("lightPos", lightPos);
 		ourShader.setVec3("viewPos", cam.Position);
+		ourShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		ourShader.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+		ourShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		ourShader.setFloat("material.shininess", 32.0f);
+
+		ourShader.setVec3("light.position", lightPos);
+		ourShader.setVec3("light.ambient", ambientColor);
+		ourShader.setVec3("light.diffuse", diffuseColor); // darken diffuse light a bit
+		ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
@@ -284,6 +299,12 @@ void processInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		cam.ProcessKeyboard(RIGHT, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+		cam.ProcessKeyboard(UP, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
+		cam.ProcessKeyboard(DOWN, deltaTime);
 	}
 }
 
