@@ -142,6 +142,20 @@ int main() {
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 	};
 
+	// positions all containers
+	glm::vec3 cubePositions[] = {
+		glm::vec3(0.0f,  0.0f,  0.0f),
+		glm::vec3(2.0f,  5.0f, -15.0f),
+		glm::vec3(-1.5f, -2.2f, -2.5f),
+		glm::vec3(-3.8f, -2.0f, -12.3f),
+		glm::vec3(2.4f, -0.4f, -3.5f),
+		glm::vec3(-1.7f,  3.0f, -7.5f),
+		glm::vec3(1.3f, -2.0f, -2.5f),
+		glm::vec3(1.5f,  2.0f, -2.5f),
+		glm::vec3(1.5f,  0.2f, -1.5f),
+		glm::vec3(-1.3f,  1.0f, -1.5f)
+	};
+
 	//--------------------------------------------------------------
 
 	// generate buffers
@@ -228,7 +242,14 @@ int main() {
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, specularMap);
 
-		ourShader.setVec3("light.position", lightPos);
+		ourShader.setVec3("light.position", cam.Position);
+		ourShader.setVec3("light.direction", cam.Front);
+		ourShader.setFloat("light.cutOff", cos(radians(12.5f)));
+		ourShader.setFloat("light.outerCutOff", cos(radians(17.5f)));
+
+		ourShader.setFloat("light.constant", 1.0f);
+		ourShader.setFloat("light.linear", 0.09f);
+		ourShader.setFloat("light.quadratic", 0.032f);
 		ourShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
 		ourShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
 		ourShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
@@ -241,17 +262,23 @@ int main() {
 		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);
 
-		mat4 model = mat4(1.0f);
-		ourShader.setMat4("model", model);
+		for (unsigned int i = 0; i < 10; i++)
+		{
+			glm::mat4 model = glm::mat4(1.0f);
+			model = translate(model, cubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			ourShader.setMat4("model", model);
 
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+			glBindVertexArray(VAO);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 
 		lightSourceShader.use();
 		lightSourceShader.setMat4("view", view);
 		lightSourceShader.setMat4("projection", projection);
 
-		model = mat4(1.0f);
+		mat4 model = mat4(1.0f);
 		model = translate(model, lightPos);
 		model = scale(model, vec3(0.2f));
 		lightSourceShader.setMat4("model", model);
