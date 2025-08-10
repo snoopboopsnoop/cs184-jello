@@ -29,7 +29,7 @@
     <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lightSourceShader.fs" />
+    <None Include="shaders\lightSourceShader.fs" />
     <None Include="shaders\shader.fs" />
     <None Include="shaders\shader.vs" />
   </ItemGroup>

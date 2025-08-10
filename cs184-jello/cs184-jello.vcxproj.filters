@@ -46,6 +46,8 @@
     <None Include="shaders\shader.vs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="lightSourceShader.fs" />
+    <None Include="shaders\lightSourceShader.fs">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
