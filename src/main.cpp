@@ -30,7 +30,7 @@ float lastX = SCR_WIDTH / 2, lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 
 // camera
-Camera cam(vec3(0.0f, 0.0f, 10.0f));
+Camera cam(vec3(0.0f, 3.0f, 10.0f));
 
 // time
 float deltaTime = 0.0f;
@@ -148,6 +148,8 @@ int main() {
 	glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
+
+
 	//--------------------------------------------------------------
 
 	// generate buffers
@@ -198,6 +200,8 @@ int main() {
 	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
 
 	//--------------------------------------------------------------
+
+	cam.Pitch = -20.0f;
 
 	// load models
 	// -----------
