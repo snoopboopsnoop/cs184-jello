@@ -211,7 +211,7 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(1.0f, 0.1f, 0.1f, 1.0f);
+		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
