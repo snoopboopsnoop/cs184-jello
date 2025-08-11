@@ -6,10 +6,12 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
+#include <vector>
 
 #include "shader.h"
 #include "stb_image.h"
 #include "camera.h"
+#include "model.h"
 
 using namespace std;
 using namespace glm;
@@ -74,24 +76,6 @@ int main() {
 
 	//--------------------------------------------------------------
 
-	// define some vertices
-	//// colored triangle
-	//float vertices[] = {
-	//	// positions         // colors
-	//	 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
-	//	-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
-	//	 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
-	//};
-	
-	//// rectangle
-	//float vertices[] = {
-	//	// positions          // colors           // texture coords
-	//	 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-	//	 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-	//	-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-	//	-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
-	//};
-
 	unsigned int indices[] = {  // note that we start from 0!
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
@@ -141,6 +125,8 @@ int main() {
 		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
 		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 	};
+
+
 
 	// positions all containers
 	glm::vec3 cubePositions[] = {
@@ -203,15 +189,19 @@ int main() {
 
 	stbi_set_flip_vertically_on_load(true);
 	// load texture
-	unsigned int diffuseMap = loadTexture("img/texture/container2.png");
-	unsigned int specularMap = loadTexture("img/specular/container2_specular.png");
+	unsigned int diffuseMap = loadTexture("resources/objects/jello/jello_texture.jpg");
+	unsigned int specularMap = loadTexture("resources/objects/jello/jello_texture.jpg");
 
 	//--------------------------------------------------------------
-
-	Shader ourShader("./shaders/shader.vs", "./shaders/shader.fs");
+	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
 
 	//--------------------------------------------------------------
+
+	// load models
+	// -----------
+	string modelPath = "resources/objects/jello/jello.obj";
+	Model ourModel(modelPath);
 
 	// render loop
 	while (!glfwWindowShouldClose(window)) {
@@ -226,7 +216,7 @@ int main() {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
 		vec3 lightColor;
 		lightColor.x = sin(glfwGetTime() * 2.0f);
@@ -249,54 +239,54 @@ int main() {
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, specularMap);
 
-		// directional light
-		ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-		ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-		ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-		ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-		// point light 1
-		ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-		ourShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-		ourShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-		ourShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-		ourShader.setFloat("pointLights[0].constant", 1.0f);
-		ourShader.setFloat("pointLights[0].linear", 0.09f);
-		ourShader.setFloat("pointLights[0].quadratic", 0.032f);
-		// point light 2
-		ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-		ourShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-		ourShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-		ourShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-		ourShader.setFloat("pointLights[1].constant", 1.0f);
-		ourShader.setFloat("pointLights[1].linear", 0.09f);
-		ourShader.setFloat("pointLights[1].quadratic", 0.032f);
-		// point light 3
-		ourShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-		ourShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-		ourShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-		ourShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-		ourShader.setFloat("pointLights[2].constant", 1.0f);
-		ourShader.setFloat("pointLights[2].linear", 0.09f);
-		ourShader.setFloat("pointLights[2].quadratic", 0.032f);
-		// point light 4
-		ourShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-		ourShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-		ourShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-		ourShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-		ourShader.setFloat("pointLights[3].constant", 1.0f);
-		ourShader.setFloat("pointLights[3].linear", 0.09f);
-		ourShader.setFloat("pointLights[3].quadratic", 0.032f);
-		// spotLight
-		ourShader.setVec3("spotLight.position", cam.Position);
-		ourShader.setVec3("spotLight.direction", cam.Front);
-		ourShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
-		ourShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
-		ourShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
-		ourShader.setFloat("spotLight.constant", 1.0f);
-		ourShader.setFloat("spotLight.linear", 0.09f);
-		ourShader.setFloat("spotLight.quadratic", 0.032f);
-		ourShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-		ourShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+		//// directional light
+		//ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
+		//ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
+		//ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
+		//ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
+		//// point light 1
+		//ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
+		//ourShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
+		//ourShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
+		//ourShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
+		//ourShader.setFloat("pointLights[0].constant", 1.0f);
+		//ourShader.setFloat("pointLights[0].linear", 0.09f);
+		//ourShader.setFloat("pointLights[0].quadratic", 0.032f);
+		//// point light 2
+		//ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
+		//ourShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
+		//ourShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
+		//ourShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
+		//ourShader.setFloat("pointLights[1].constant", 1.0f);
+		//ourShader.setFloat("pointLights[1].linear", 0.09f);
+		//ourShader.setFloat("pointLights[1].quadratic", 0.032f);
+		//// point light 3
+		//ourShader.setVec3("pointLights[2].position", pointLightPositions[2]);
+		//ourShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
+		//ourShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
+		//ourShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
+		//ourShader.setFloat("pointLights[2].constant", 1.0f);
+		//ourShader.setFloat("pointLights[2].linear", 0.09f);
+		//ourShader.setFloat("pointLights[2].quadratic", 0.032f);
+		//// point light 4
+		//ourShader.setVec3("pointLights[3].position", pointLightPositions[3]);
+		//ourShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
+		//ourShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
+		//ourShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
+		//ourShader.setFloat("pointLights[3].constant", 1.0f);
+		//ourShader.setFloat("pointLights[3].linear", 0.09f);
+		//ourShader.setFloat("pointLights[3].quadratic", 0.032f);
+		//// spotLight
+		//ourShader.setVec3("spotLight.position", cam.Position);
+		//ourShader.setVec3("spotLight.direction", cam.Front);
+		//ourShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
+		//ourShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
+		//ourShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
+		//ourShader.setFloat("spotLight.constant", 1.0f);
+		//ourShader.setFloat("spotLight.linear", 0.09f);
+		//ourShader.setFloat("spotLight.quadratic", 0.032f);
+		//ourShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
+		//ourShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
@@ -306,19 +296,24 @@ int main() {
 		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);
 
-		for (unsigned int i = 0; i < 10; i++)
-		{
-			glm::mat4 model = glm::mat4(1.0f);
-			model = translate(model, cubePositions[i]);
-			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			ourShader.setMat4("model", model);
+		ourShader.use();
 
-			glBindVertexArray(VAO);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		lightSourceShader.use();
+		//for (unsigned int i = 0; i < 10; i++)
+		//{
+		//	glm::mat4 model = glm::mat4(1.0f);
+		//	model = translate(model, cubePositions[i]);
+		//	float angle = 20.0f * i;
+		//	model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+		//	ourShader.setMat4("model", model);
+
+		//	glBindVertexArray(VAO);
+		//	glDrawArrays(GL_TRIANGLES, 0, 36);
+		//}
+
+		/*lightSourceShader.use();
 		lightSourceShader.setMat4("view", view);
 		lightSourceShader.setMat4("projection", projection);
 		for (unsigned int i = 0; i < 4; i++) {
@@ -329,7 +324,15 @@ int main() {
 
 			glBindVertexArray(lightVAO);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
+		}*/
+
+		//ourShader.use();
+		//// render the loaded model
+		//glm::mat4 model = glm::mat4(1.0f);
+		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+		//ourShader.setMat4("model", model);
+		//ourModel.Draw(ourShader);
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered

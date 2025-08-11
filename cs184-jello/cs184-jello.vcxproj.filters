@@ -27,6 +27,9 @@
     <ClCompile Include="stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shader.h">
@@ -38,6 +41,9 @@
     <ClInclude Include="camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\shader.fs">
@@ -47,6 +53,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="shaders\lightSourceShader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\model_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="shaders\model_shader.vertex">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
