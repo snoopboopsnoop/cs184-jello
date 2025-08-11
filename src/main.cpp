@@ -30,7 +30,7 @@ float lastX = SCR_WIDTH / 2, lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 
 // camera
-Camera cam(vec3(0.0f, 0.0f, 3.0f));
+Camera cam(vec3(0.0f, 0.0f, 10.0f));
 
 // time
 float deltaTime = 0.0f;
@@ -205,7 +205,8 @@ int main() {
 	Model ourModel(modelPath);
 
 	// load some point masses
-	Cube c(3, 3);
+	vec3 start(0.0f, 10.0f, 0.0f);
+	Cube c(3, 3, start);
 
 	// render loop
 	while (!glfwWindowShouldClose(window)) {
@@ -230,12 +231,10 @@ int main() {
 		// Cube's spring forces should account for the resistance and point mass
 		// forces should be mutated because of that
 
-
-
 		// Verlet
-		c.applyForces(vec3(0.0f, -9.81f, 0.0f));
-		c.verletStep(deltaTime, .20);
-		c.satisfyConstraints(0.0);
+		c.applyForces(glm::vec3(0.0f, -9.81f, 0.0f));
+		c.verletStep(deltaTime, .80);
+		c.satisfyConstraints(0.0f);
 		c.refreshMesh();
 
 		mat4 projection;
@@ -246,13 +245,10 @@ int main() {
 		ptShader.use();
 		ptShader.setMat4("view", view);
 		ptShader.setMat4("projection", projection);
-		mat4 model = mat4(1.0f);
-		ptShader.setMat4("model", model);
 
 		lineShader.use();
 		lineShader.setMat4("view", view);
 		lineShader.setMat4("projection", projection);
-		lineShader.setMat4("model", model);
 
 		c.Draw(ptShader, lineShader);
 

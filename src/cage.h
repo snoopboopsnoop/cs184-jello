@@ -52,15 +52,17 @@ class Cage {
 	public:
 		vector<PointMass> pts;
 		vector<Spring> springs;
+		vec3 pos;
 
 		Cage() {
 			pts = vector<PointMass>();
 			springs = vector<Spring>();
 		}
 
-		Cage(vector<PointMass> pts, vector<Spring> springs) {
+		Cage(vector<PointMass> pts, vector<Spring> springs, vec3 pos) {
 			this->pts = pts;
 			this->springs = springs;
+			this->pos = pos;
 
 			setupMesh();
 		}
@@ -68,8 +70,8 @@ class Cage {
 
 		void satisfyConstraints(float floorY) {
 			for (auto &p : pts) {
-				if (p.Position.y < floorY) {
-					p.Position.y = floorY;
+				if (p.Position.y + pos.y < floorY) {
+					p.Position.y = floorY - pos.y;
 				}
 			}
 		}
@@ -84,23 +86,14 @@ class Cage {
 				float length = distance(pm_a->Position, pm_b->Position);
 				float force = spring.k * (length - spring.restLength);
 
-				vec3 force_dir = normalize(magnitude);
-
-				vec3 f_a = -force * force_dir;
-				vec3 f_b = force * force_dir;
-
-				pm_a->forces += f_a;
-				pm_b->forces += f_b;
+				///
+				// vec3 force_dir = ;
 			}
 		}
 
-
-
-		// void springConstraints
-
 		void applyForces(vec3 gravity) {
 			for (auto &pointMass : pts) {
-				pointMass.forces += gravity;
+				pointMass.forces += gravity * pointMass.mass;
 			}
 		}
 
@@ -111,7 +104,7 @@ class Cage {
 
 				vec3 temp = point_mass.Position;
 				point_mass.Position = point_mass.Position + (1 - damping) * (point_mass.Position - point_mass.previousPosition) +
-					(acceleration * deltaTime2);
+					(0.5f * acceleration * deltaTime2);
 				point_mass.previousPosition = temp;
 			}
 		}
@@ -122,9 +115,13 @@ class Cage {
 		
 		void Draw(Shader& massShader, Shader& lineShader)
 		{
+			mat4 position = mat4(1.0f);
+			position = translate(position, this->pos);
 			massShader.use();
+			massShader.setMat4("model", position);
 			DrawMasses();
 			lineShader.use();
+			lineShader.setMat4("model", position);
 			DrawSprings();
 		}
 
@@ -182,7 +179,7 @@ class Cage {
 
 class Cube : public Cage {
 	public:
-		Cube(unsigned int length = 1, unsigned int npl = 1) {
+		Cube(unsigned int length = 1, unsigned int npl = 1, vec3 pos = vec3(0.0f, 0.0f, 0.0f)) {
 			if (npl == 0) {
 				cout << "ERROR::CUBE::INVALID_NPL" << endl;
 				return;
@@ -190,6 +187,7 @@ class Cube : public Cage {
 
 			this->length = length;
 			this->nodesPerLength = npl;
+			this->pos = pos;
 
 			construct();
 		}
@@ -202,7 +200,7 @@ class Cube : public Cage {
 			vector<PointMass> nodes;
 			vector<Spring> springs;
 
-			float start = -length / 0.5f;
+			float start = -length / 2.0f;
 			int nodesPerEdge = length * nodesPerLength + 1;
 
 			for (int i = 0; i < nodesPerEdge; ++i) {
@@ -231,6 +229,12 @@ class Cube : public Cage {
 					}
 				}
 			}
+
+			//for (auto& node : nodes) {
+			//	cout << "pt at " << node.Position.x << ", " << node.Position.y << ", " << node.Position.z << endl;
+			//}
+			//cout << endl;
+
 			this->pts = nodes;
 			this->springs = springs;
 			
