@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\build\CMakeFiles\a99ac3a30b3bce68a51bd5acb60bdd53\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{150431B7-0DCA-3AA6-A1DA-4C38C9BADA7A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

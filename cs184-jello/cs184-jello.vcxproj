@@ -19,23 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="mesh.h" />
-    <ClCompile Include="stb_image.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="camera.h" />
-    <ClInclude Include="model.h" />
-    <ClInclude Include="shader.h" />
+    <ClInclude Include="..\src\camera.h" />
+    <ClInclude Include="..\src\mesh.h" />
+    <ClInclude Include="..\src\model.h" />
+    <ClInclude Include="..\src\physobj.h" />
+    <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\lightSourceShader.fs" />
-    <None Include="shaders\model_shader.frag" />
-    <None Include="shaders\model_shader.vertex" />
-    <None Include="shaders\shader.fs" />
-    <None Include="shaders\shader.vs" />
+    <None Include="..\src\shaders\lightSourceShader.fs" />
+    <None Include="..\src\shaders\model_shader.frag" />
+    <None Include="..\src\shaders\model_shader.vertex" />
+    <None Include="..\src\shaders\shader.fs" />
+    <None Include="..\src\shaders\shader.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\glad.c" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\stb_image.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

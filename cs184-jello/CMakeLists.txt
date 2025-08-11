@@ -4,27 +4,28 @@ set(PROJECT_NAME cs184-jello)
 # Source groups
 ################################################################################
 set(Header_Files
+    "../src/camera.h"
+    "../src/mesh.h"
+    "../src/model.h"
+    "../src/physobj.h"
+    "../src/shader.h"
     "../src/stb_image.h"
-    "camera.h"
-    "mesh.h"
-    "model.h"
-    "shader.h"
 )
 source_group("Header Files" FILES ${Header_Files})
 
 set(Shaders
-    "shaders/lightSourceShader.fs"
-    "shaders/model_shader.frag"
-    "shaders/model_shader.vertex"
-    "shaders/shader.fs"
-    "shaders/shader.vs"
+    "../src/shaders/lightSourceShader.fs"
+    "../src/shaders/model_shader.frag"
+    "../src/shaders/model_shader.vertex"
+    "../src/shaders/shader.fs"
+    "../src/shaders/shader.vs"
 )
 source_group("Shaders" FILES ${Shaders})
 
 set(Source_Files
-    "glad.c"
-    "main.cpp"
-    "stb_image.cpp"
+    "../src/glad.c"
+    "../src/main.cpp"
+    "../src/stb_image.cpp"
 )
 source_group("Source Files" FILES ${Source_Files})
 
@@ -38,6 +39,10 @@ set(ALL_FILES
 # Target
 ################################################################################
 add_executable(${PROJECT_NAME} ${ALL_FILES})
+
+target_include_directories(cs184-jello PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_link_directories(cs184-jello PRIVATE ${CMAKE_SOURCE_DIR}/lib)
+target_link_libraries(cs184-jello PRIVATE glfw3 opengl32 assimp-vc143-mtd)
 
 use_props(${PROJECT_NAME} "${CMAKE_CONFIGURATION_TYPES}" "${DEFAULT_CXX_PROPS}")
 set(ROOT_NAMESPACE cs184jello)

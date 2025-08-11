@@ -18,48 +18,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stb_image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mesh.h">
+    <ClInclude Include="..\src\camera.h">
       <Filter>Header Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="shader.h">
+    </ClInclude>
+    <ClInclude Include="..\src\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\physobj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\shader.fs">
+    <None Include="..\src\shaders\lightSourceShader.fs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\shader.vs">
+    <None Include="..\src\shaders\model_shader.frag">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\lightSourceShader.fs">
+    <None Include="..\src\shaders\model_shader.vertex">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\model_shader.frag">
+    <None Include="..\src\shaders\shader.fs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="shaders\model_shader.vertex">
+    <None Include="..\src\shaders\shader.vs">
       <Filter>Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\stb_image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\physobj.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\cs184-jello\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\shaders\lightSourceShader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\shaders\model_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\shaders\model_shader.vertex">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\shaders\shader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="C:\Users\cheng\Documents\berkeley\courses\2025\summer\CS 184\cs184-jello\src\shaders\shader.vs">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E6E23EC4-A8F0-3485-94DB-14C8C2B8EC1E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{663D625D-8F56-3F20-87F0-126BC4A40D79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8EAEAB24-0101-3116-A82C-8D2EC7F48601}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
