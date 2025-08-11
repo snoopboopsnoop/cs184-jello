@@ -1,0 +1,3 @@
+/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/build/CMakeFiles/cs184-jello.dir
+/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/build/CMakeFiles/edit_cache.dir
+/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/build/CMakeFiles/rebuild_cache.dir

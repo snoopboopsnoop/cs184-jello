@@ -42,12 +42,10 @@ int main() {
 	// glfw initialization & configuration
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-#ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+
 
 	// create window
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
@@ -213,7 +211,7 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(1.0f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
@@ -296,22 +294,22 @@ int main() {
 		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);
 
-		ourShader.use();
+		//ourShader.use();
 
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glBindVertexArray(VAO);
+		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//for (unsigned int i = 0; i < 10; i++)
-		//{
-		//	glm::mat4 model = glm::mat4(1.0f);
-		//	model = translate(model, cubePositions[i]);
-		//	float angle = 20.0f * i;
-		//	model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-		//	ourShader.setMat4("model", model);
+		for (unsigned int i = 0; i < 10; i++)
+		{
+		glm::mat4 model = glm::mat4(1.0f);
+			model = translate(model, cubePositions[i]);
+			float angle = 20.0f * i;
+			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+			ourShader.setMat4("model", model);
 
-		//	glBindVertexArray(VAO);
-		//	glDrawArrays(GL_TRIANGLES, 0, 36);
-		//}
+			glBindVertexArray(VAO);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
 
 		/*lightSourceShader.use();
 		lightSourceShader.setMat4("view", view);
