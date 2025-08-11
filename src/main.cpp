@@ -12,6 +12,7 @@
 #include "stb_image.h"
 #include "camera.h"
 #include "model.h"
+#include "cage.h"
 
 using namespace std;
 using namespace glm;
@@ -193,6 +194,8 @@ int main() {
 	//--------------------------------------------------------------
 	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
+	Shader ptShader("./shaders/pt_shader.vertex", "./shaders/pt_shader.frag");
+	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
 
 	//--------------------------------------------------------------
 
@@ -200,6 +203,9 @@ int main() {
 	// -----------
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
+
+	// load some point masses
+	Cube c(3, 3);
 
 	// render loop
 	while (!glfwWindowShouldClose(window)) {
@@ -211,80 +217,10 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(1.0f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-
-		vec3 lightColor;
-		lightColor.x = sin(glfwGetTime() * 2.0f);
-		lightColor.y = sin(glfwGetTime() * 0.7f);
-		lightColor.z = sin(glfwGetTime() * 1.3f);
-
-		vec3 diffuseColor = lightColor * vec3(0.5f);
-		vec3 ambientColor = diffuseColor * vec3(0.2f);
-
-		ourShader.use();
-		ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-		ourShader.setVec3("viewPos", cam.Position);
-
-		ourShader.setInt("material.diffuse", 0);
-		ourShader.setInt("material.specular", 1);
-		ourShader.setFloat("material.shininess", 32.0f);
-
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap);
-
-		//// directional light
-		//ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-		//ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-		//ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-		//// point light 1
-		//ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-		//ourShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[0].constant", 1.0f);
-		//ourShader.setFloat("pointLights[0].linear", 0.09f);
-		//ourShader.setFloat("pointLights[0].quadratic", 0.032f);
-		//// point light 2
-		//ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-		//ourShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[1].constant", 1.0f);
-		//ourShader.setFloat("pointLights[1].linear", 0.09f);
-		//ourShader.setFloat("pointLights[1].quadratic", 0.032f);
-		//// point light 3
-		//ourShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-		//ourShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[2].constant", 1.0f);
-		//ourShader.setFloat("pointLights[2].linear", 0.09f);
-		//ourShader.setFloat("pointLights[2].quadratic", 0.032f);
-		//// point light 4
-		//ourShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-		//ourShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[3].constant", 1.0f);
-		//ourShader.setFloat("pointLights[3].linear", 0.09f);
-		//ourShader.setFloat("pointLights[3].quadratic", 0.032f);
-		//// spotLight
-		//ourShader.setVec3("spotLight.position", cam.Position);
-		//ourShader.setVec3("spotLight.direction", cam.Front);
-		//ourShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
-		//ourShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
-		//ourShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("spotLight.constant", 1.0f);
-		//ourShader.setFloat("spotLight.linear", 0.09f);
-		//ourShader.setFloat("spotLight.quadratic", 0.032f);
-		//ourShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-		//ourShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
@@ -294,43 +230,19 @@ int main() {
 		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);
 
-		//ourShader.use();
+		// render pt masses
+		ptShader.use();
+		ptShader.setMat4("view", view);
+		ptShader.setMat4("projection", projection);
+		mat4 model = mat4(1.0f);
+		ptShader.setMat4("model", model);
 
-		//glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
+		lineShader.use();
+		lineShader.setMat4("view", view);
+		lineShader.setMat4("projection", projection);
+		lineShader.setMat4("model", model);
 
-		for (unsigned int i = 0; i < 10; i++)
-		{
-		glm::mat4 model = glm::mat4(1.0f);
-			model = translate(model, cubePositions[i]);
-			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			ourShader.setMat4("model", model);
-
-			glBindVertexArray(VAO);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
-
-		/*lightSourceShader.use();
-		lightSourceShader.setMat4("view", view);
-		lightSourceShader.setMat4("projection", projection);
-		for (unsigned int i = 0; i < 4; i++) {
-			mat4 model = mat4(1.0f);
-			model = translate(model, pointLightPositions[i]);
-			model = scale(model, vec3(0.2f));
-			lightSourceShader.setMat4("model", model);
-
-			glBindVertexArray(lightVAO);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}*/
-
-		//ourShader.use();
-		//// render the loaded model
-		//glm::mat4 model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-		//ourShader.setMat4("model", model);
-		//ourModel.Draw(ourShader);
+		c.Draw(ptShader, lineShader);
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered

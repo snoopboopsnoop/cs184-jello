@@ -19,6 +19,7 @@
 #include "stb_image.h"
 #include "camera.h"
 #include "mesh.h"
+#include "cage.h"
 
 using namespace std;
 using namespace glm;
@@ -27,14 +28,21 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
 
 class Model {
     public:
+        Model();
+
         Model(string path)
         {
             loadModel(path);
         }
+
         void Draw(Shader& shader) {
             for (unsigned int i = 0; i < meshes.size(); i++) {
                 meshes[i].Draw(shader);
             }
+        }
+    
+        void addPointMass(vec3 pos, float m) {
+            this->pts.push_back(PointMass(pos, m));
         }
 
     private:
@@ -42,6 +50,10 @@ class Model {
         vector<Mesh> meshes;
         string directory;
         vector<Texture> textures_loaded;
+        
+        // cage data
+        vector<PointMass> pts;
+        vector<Spring> springs;
 
         void loadModel(string path) {
             Assimp::Importer importer;
