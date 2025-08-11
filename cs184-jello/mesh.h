@@ -18,7 +18,6 @@ struct Vertex {
 	vec3 Position;
 	vec3 Normal;
 	vec2 TexCoords;
-	float mass;
 };
 
 struct Texture {
