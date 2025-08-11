@@ -84,10 +84,19 @@ class Cage {
 				float length = distance(pm_a->Position, pm_b->Position);
 				float force = spring.k * (length - spring.restLength);
 
-				///
-				// vec3 force_dir = ;
+				vec3 force_dir = normalize(magnitude);
+
+				vec3 f_a = -force * force_dir;
+				vec3 f_b = force * force_dir;
+
+				pm_a->forces += f_a;
+				pm_b->forces += f_b;
 			}
 		}
+
+
+
+		// void springConstraints
 
 		void applyForces(vec3 gravity) {
 			for (auto &pointMass : pts) {
@@ -101,7 +110,7 @@ class Cage {
 				vec3 acceleration = point_mass.forces / point_mass.mass;
 
 				vec3 temp = point_mass.Position;
-				point_mass.Position = point_mass.Position + damping * (point_mass.Position - point_mass.previousPosition) +
+				point_mass.Position = point_mass.Position + (1 - damping) * (point_mass.Position - point_mass.previousPosition) +
 					(acceleration * deltaTime2);
 				point_mass.previousPosition = temp;
 			}

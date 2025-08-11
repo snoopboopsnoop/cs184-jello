@@ -232,11 +232,10 @@ int main() {
 
 
 
-
 		// Verlet
-		c.applyForces(glm::vec3(0.0f, -9.81f, 0.0f));
+		c.applyForces(vec3(0.0f, -9.81f, 0.0f));
 		c.verletStep(deltaTime, .20);
-		c.satisfyConstraints(-1.0f);
+		c.satisfyConstraints(0.0);
 		c.refreshMesh();
 
 		mat4 projection;
