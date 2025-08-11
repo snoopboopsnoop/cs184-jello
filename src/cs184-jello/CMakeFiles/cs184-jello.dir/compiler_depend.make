@@ -91,7 +91,7 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: /Users/isaiahtapia/
   /Users/isaiahtapia/cs184/cs184-jello/glad/include/KHR/khrplatform.h \
   /Users/isaiahtapia/cs184/cs184-jello/glad/include/glad/glad.h
 
-cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/isaiahtapia/cs184/cs184-jello/src/main.cpp \
+cs184-jello/CMakeFiles/cs184-jello.dir/__/main.cpp.o: main.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h \
@@ -996,7 +996,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/isaiahtapia/cs1
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
   /Users/isaiahtapia/cs184/cs184-jello/glad/include/KHR/khrplatform.h \
-  /Users/isaiahtapia/cs184/cs184-jello/glad/include/glad/glad.h \
   /Users/isaiahtapia/cs184/cs184-jello/include/GLFW/glfw3.h \
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/common.hpp \
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/detail/qualifier.hpp \
@@ -1236,12 +1235,12 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/isaiahtapia/cs1
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/vec3.hpp \
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/vec4.hpp \
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/src/cage.h \
-  /Users/isaiahtapia/cs184/cs184-jello/src/camera.h \
-  /Users/isaiahtapia/cs184/cs184-jello/src/mesh.h \
-  /Users/isaiahtapia/cs184/cs184-jello/src/model.h \
-  /Users/isaiahtapia/cs184/cs184-jello/src/shader.h \
-  /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.h \
+  /Users/isaiahtapia/cs184/cs184-jello/glad/include/glad/glad.h \
+  camera.h \
+  mesh.h \
+  model.h \
+  shader.h \
+  stb_image.h \
   /opt/homebrew/include/assimp/Compiler/poppack1.h \
   /opt/homebrew/include/assimp/Compiler/pushpack1.h \
   /opt/homebrew/include/assimp/Importer.hpp \
@@ -1273,7 +1272,7 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/isaiahtapia/cs1
   /opt/homebrew/include/assimp/vector3.h \
   /opt/homebrew/include/assimp/vector3.inl
 
-cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp \
+cs184-jello/CMakeFiles/cs184-jello.dir/__/stb_image.cpp.o: stb_image.cpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/Availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h \
@@ -1509,10 +1508,8 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdarg.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdint.h \
-  /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.h
+  stb_image.h
 
-
-/Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp:
 
 /opt/homebrew/include/assimp/vector3.inl:
 
@@ -1540,11 +1537,9 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /opt/homebrew/include/assimp/Compiler/pushpack1.h:
 
-/Users/isaiahtapia/cs184/cs184-jello/src/shader.h:
+shader.h:
 
-/Users/isaiahtapia/cs184/cs184-jello/src/camera.h:
-
-/Users/isaiahtapia/cs184/cs184-jello/src/cage.h:
+camera.h:
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/packing.hpp:
 
@@ -1650,6 +1645,10 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/ext/vector_float4.hpp:
 
+stb_image.cpp:
+
+stb_image.h:
+
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/ext/vector_float3_precision.hpp:
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/ext/quaternion_double_precision.hpp:
@@ -1699,6 +1698,8 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/ext/matrix_double4x3_precision.hpp:
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/ext/matrix_double3x3_precision.hpp:
+
+mesh.h:
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/ext/matrix_double3x2_precision.hpp:
 
@@ -2060,8 +2061,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_function.h:
 
-/Users/isaiahtapia/cs184/cs184-jello/src/model.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/make_signed.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_floating_point.h:
@@ -2151,8 +2150,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_pthread/_pthread_types.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/apply_cv.h:
-
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/alignment_of.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__atomic/atomic_flag.h:
 
@@ -2606,8 +2603,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h:
 
-/Users/isaiahtapia/cs184/cs184-jello/src/stb_image.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/errno.h:
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/mat3x2.hpp:
@@ -2769,8 +2764,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_set_intersection.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__bit/bit_ceil.h:
-
-/Users/isaiahtapia/cs184/cs184-jello/src/mesh.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_minmax.h:
 
@@ -3184,8 +3177,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/pstl_sort.h:
 
-/Users/isaiahtapia/cs184/cs184-jello/src/main.cpp:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_includes.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/pstl_replace.h:
@@ -3265,6 +3256,8 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__iterator/reverse_iterator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_errno_t.h:
+
+model.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/libkern/arm/OSByteOrder.h:
 
@@ -3670,8 +3663,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/arch.h:
 
-/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int64_t.h:
-
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/is_fundamental.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/ranges_for_each.h:
@@ -3712,6 +3703,10 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__compare/common_comparison_category.h:
 
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__type_traits/alignment_of.h:
+
+main.cpp:
+
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/uses_allocator.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/pstl_frontend_dispatch.h:
@@ -3739,6 +3734,8 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__functional/is_transparent.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/arm/types.h:
+
+/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_u_int64_t.h:
 
 /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/search.h:
 

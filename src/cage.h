@@ -17,10 +17,16 @@ using namespace glm;
 
 struct PointMass {
     vec3 Position;
+	vec3 previousPosition;
+	vec3 forces;
+
     float mass;
 
     PointMass(vec3 pos, float m) {
         Position = pos;
+    	previousPosition = pos;
+
+    	forces = vec3(0, 0, 0);
         mass = m;
     }
 };
@@ -29,6 +35,7 @@ struct Spring {
     // the indices of the two point masses attached
     unsigned int v0;
     unsigned int v1;
+	float restLength;
 
     float k;
 
@@ -36,6 +43,8 @@ struct Spring {
 		this->v0 = v0;
 		this->v1 = v1;
 		this->k = k;
+		// Set to some constant, its a cube so all would the same distance, how far are positions from one another typically
+		this->restLength = 1/3;
 	}
 };
 
@@ -54,6 +63,48 @@ class Cage {
 			this->springs = springs;
 
 			setupMesh();
+		}
+
+
+		void satisfyConstraints(float floorY) {
+			for (auto &p : pts) {
+				if (p.Position.y < floorY) {
+					p.Position.y = floorY;
+				}
+			}
+		}
+
+		void springCorrectionForces() {
+			for (auto &spring : springs) {
+				PointMass *pm_a = &pts[spring.v0];
+				PointMass *pm_b = &pts[spring.v1];
+				vec3 magnitude = pm_a->Position - pm_b->Position;
+
+				// Euclidean Distance between the two point mass positions
+				float length = distance(pm_a->Position, pm_b->Position);
+				float force = spring.k * (length - spring.restLength);
+
+				///
+				// vec3 force_dir = ;
+			}
+		}
+
+		void applyForces(vec3 gravity) {
+			for (auto &pointMass : pts) {
+				pointMass.forces += gravity;
+			}
+		}
+
+		void verletStep(float deltaTime, float damping) {
+			float deltaTime2 = deltaTime * deltaTime;
+			for (auto &point_mass : pts) {
+				vec3 acceleration = point_mass.forces / point_mass.mass;
+
+				vec3 temp = point_mass.Position;
+				point_mass.Position = point_mass.Position + damping * (point_mass.Position - point_mass.previousPosition) +
+					(acceleration * deltaTime2);
+				point_mass.previousPosition = temp;
+			}
 		}
 
         void refreshMesh() {

@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/Users/isaiahtapia/cs184/cs184-jello")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/isaiahtapia/cs184/cs184-jello/cs184-jello")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/isaiahtapia/cs184/cs184-jello/src")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

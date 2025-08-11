@@ -226,6 +226,19 @@ int main() {
 		mat4 view = cam.GetViewMatrix();
 		ourShader.setMat4("view", view);
 
+
+		// Cube's spring forces should account for the resistance and point mass
+		// forces should be mutated because of that
+
+
+
+
+		// Verlet
+		c.applyForces(glm::vec3(0.0f, -9.81f, 0.0f));
+		c.verletStep(deltaTime, .20);
+		c.satisfyConstraints(-1.0f);
+		c.refreshMesh();
+
 		mat4 projection;
 		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
 		ourShader.setMat4("projection", projection);
