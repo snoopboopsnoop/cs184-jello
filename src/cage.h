@@ -86,8 +86,13 @@ class Cage {
 				float length = distance(pm_a->Position, pm_b->Position);
 				float force = spring.k * (length - spring.restLength);
 
-				///
-				// vec3 force_dir = ;
+				vec3 force_dir = normalize(magnitude);
+
+				vec3 f_a = -force * force_dir;
+				vec3 f_b = force * force_dir;
+
+				pm_a->forces += f_a;
+				pm_b->forces += f_b;
 			}
 		}
 
