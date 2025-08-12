@@ -64,7 +64,7 @@ class Cage {
 			this->springs = springs;
 			this->pos = pos;
 
-			setupMesh();
+			setupCage();
 		}
 
 
@@ -114,8 +114,8 @@ class Cage {
 			}
 		}
 
-        void refreshMesh() {
-            setupMesh();
+        void refresh() {
+            setupCage();
         }
 		
 		void Draw(Shader& massShader, Shader& lineShader)
@@ -149,7 +149,7 @@ class Cage {
 		unsigned int VAO, VBO, EBO;
         vector<unsigned int> idx;
 
-		void setupMesh() {
+		void setupCage() {
 			glGenVertexArrays(1, &VAO);
 			glGenBuffers(1, &VBO);
 			glGenBuffers(1, &EBO);
@@ -234,16 +234,10 @@ class Cube : public Cage {
 					}
 				}
 			}
-
-			//for (auto& node : nodes) {
-			//	cout << "pt at " << node.Position.x << ", " << node.Position.y << ", " << node.Position.z << endl;
-			//}
-			//cout << endl;
-
 			this->pts = nodes;
 			this->springs = springs;
 			
-			refreshMesh();
+			refresh();
 		}
 };
 
