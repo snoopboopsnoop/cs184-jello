@@ -1,0 +1,8 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/crystal/Desktop/CS184/cs184-jello/build/cmake_install.cmake",
+		"/Users/crystal/Desktop/CS184/cs184-jello/build/cs184-jello/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
