@@ -263,14 +263,10 @@ int main() {
 	// load models
 	// -----------
 	string modelPath = "resources/objects/jello/jello.obj";
-	cout << "Loading jello from: " << modelPath << endl;
 	Model ourModel(modelPath);
-	cout << "Jello load success yippee!!" << endl;
 
 	string platePath = "resources/objects/plate/plate.obj";
-	cout << "Loading plate from: " << modelPath << endl;
 	Model plateModel(platePath);
-	cout << "Plate load success yippee!!" << endl;
 
 /* COMMENTING OUT CUBE N CAGE STUFF
 	// load some point masses
@@ -298,7 +294,8 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(1.0f, 0.87f, 0.93f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		// glClearColor(1.0f, 0.87f, 0.93f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//// wireframe mode (commented out bc translucency wants solid rendering)
@@ -306,14 +303,14 @@ int main() {
 
 		vec3 lightColor;
 
-		float t = 0.5f + 0.5f * sin(glfwGetTime());  // cycles 0 to 1 smoothly
-		lightColor.x = 1.0f;
-		lightColor.y = 0.75f * (0.4f + 0.6f * t);  // from dark pink green to white green
-		lightColor.z = 0.8f * (0.4f + 0.6f * t);   // from dark pink blue to white blue
+		float t = 0.5f + 0.5f * sin(glfwGetTime() * 0.5f);
+		lightColor.x = t; // 0 to 1
+		lightColor.y = 0.0f; // no green
+		lightColor.z = 1.0f - t; // 1 to 0 blue to red
 
-		// lightColor.x = 0.5f + 0.5f * sin(glfwGetTime() * 2.0f);
-		// lightColor.y = 0.5f + 0.5f * sin(glfwGetTime() * 0.7f);
-		// lightColor.z = 0.5f + 0.5f * sin(glfwGetTime() * 1.3f);
+		// lightColor.x = 1.0f;
+		// lightColor.y = 0.5f * (0.4f + 0.6f);
+		// lightColor.z = 0.5f * (0.4f + 0.6f);
 
 		vec3 diffuseColor = lightColor * vec3(0.8f);
 		vec3 ambientColor = diffuseColor * vec3(0.6f);
@@ -384,9 +381,13 @@ int main() {
 */
 		// render PLATE model behind jello
 		ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
+		vec3 plateDiffuseColor = vec3(0.6f, 0.6f, 0.6f);
+		vec3 plateAmbientColor = plateDiffuseColor * vec3(0.6f);
+		ourShader.setVec3("DiffuseColor", plateDiffuseColor);
+		ourShader.setVec3("AmbientColor", plateAmbientColor);
 
 		glm::mat4 plateModelMatrix = glm::mat4(1.0f);
-		plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, -0.6f,-0.4f));
+		plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, -0.6f,-0.5f));
 		plateModelMatrix = glm::scale(plateModelMatrix, glm::vec3(2.5f, 1.5f, 2.5f));
 		ourShader.setMat4("model", plateModelMatrix);
 
@@ -396,6 +397,12 @@ int main() {
 		glEnable(GL_BLEND);
 
 		// render JELLO model
+		ourShader.setVec3("objectColor", 1.0f, 0.87f, 0.93f);
+		diffuseColor = lightColor * vec3(0.6f);
+		ambientColor = diffuseColor * vec3(0.8f);
+		ourShader.setVec3("DiffuseColor", diffuseColor);
+		ourShader.setVec3("AmbientColor", ambientColor);
+
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, -0.54f, 0.0f));
 		model = glm::scale(model, glm::vec3(1.45f, 1.45f, 1.45f));
