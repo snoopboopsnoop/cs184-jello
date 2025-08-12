@@ -32,6 +32,8 @@
     <None Include="..\src\shaders\line_shader.vertex" />
     <None Include="..\src\shaders\model_shader.frag" />
     <None Include="..\src\shaders\model_shader.vertex" />
+    <None Include="..\src\shaders\plane_shader.frag" />
+    <None Include="..\src\shaders\plane_shader.vertex" />
     <None Include="..\src\shaders\pt_shader.frag" />
     <None Include="..\src\shaders\pt_shader.vertex" />
     <None Include="..\src\shaders\shader.fs" />

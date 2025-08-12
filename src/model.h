@@ -40,20 +40,12 @@ class Model {
                 meshes[i].Draw(shader);
             }
         }
-    
-        void addPointMass(vec3 pos, float m) {
-            this->pts.push_back(PointMass(pos, m));
-        }
 
     private:
         // model data
         vector<Mesh> meshes;
         string directory;
         vector<Texture> textures_loaded;
-        
-        // cage data
-        vector<PointMass> pts;
-        vector<Spring> springs;
 
         void loadModel(string path) {
             Assimp::Importer importer;

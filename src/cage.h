@@ -80,7 +80,7 @@ class Cage {
 
 		void applyForces(vec3 gravity) {
 			for (auto &pointMass : pts) {
-				// pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
+				pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
 				pointMass.forces += gravity * pointMass.mass;
 			}
 		}
@@ -244,20 +244,21 @@ class Cube : public Cage {
 										start + ((float)k / nodesPerLength)), 1));
 						
 						// connect to top
+						float k_val = 2;
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
 						if (k + 1 != nodesPerEdge) {
 							int upIdx = currIdx + 1;
-							springs.push_back(Spring(currIdx, upIdx, 1));
+							springs.push_back(Spring(currIdx, upIdx, k_val));
 						}
 						// connect to right
 						if (i + 1 != nodesPerEdge) {
 							int rightIdx = currIdx + (nodesPerEdge * nodesPerEdge);
-							springs.push_back(Spring(currIdx, rightIdx, 1));
+							springs.push_back(Spring(currIdx, rightIdx, k_val));
 						}
 						// connect to forward
 						if (j + 1 != nodesPerEdge) {
 							int forIdx = currIdx + nodesPerEdge;
-							springs.push_back(Spring(currIdx, forIdx, 1));
+							springs.push_back(Spring(currIdx, forIdx, k_val));
 						}
 					}
 				}

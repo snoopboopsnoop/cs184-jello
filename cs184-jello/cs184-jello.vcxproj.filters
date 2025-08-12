@@ -65,6 +65,12 @@
     <None Include="..\src\shaders\line_shader.vertex">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\src\shaders\plane_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\plane_shader.vertex">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\glad.c">
