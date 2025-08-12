@@ -43,8 +43,9 @@ struct Spring {
 		this->v0 = v0;
 		this->v1 = v1;
 		this->k = k;
+
 		// Set to some constant, its a cube so all would the same distance, how far are positions from one another typically
-		this->restLength = 1/3;
+		this->restLength = 1.0f/3.0f;
 	}
 };
 
@@ -64,7 +65,7 @@ class Cage {
 			this->springs = springs;
 			this->pos = pos;
 
-			setupCage();
+			setupMesh();
 		}
 
 
@@ -76,17 +77,32 @@ class Cage {
 			}
 		}
 
+
+		void applyForces(vec3 gravity) {
+			for (auto &pointMass : pts) {
+				pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
+				pointMass.forces += gravity * pointMass.mass;
+			}
+		}
+
 		void springCorrectionForces() {
 			for (auto &spring : springs) {
 				PointMass *pm_a = &pts[spring.v0];
 				PointMass *pm_b = &pts[spring.v1];
-				vec3 magnitude = pm_a->Position - pm_b->Position;
 
-				// Euclidean Distance between the two point mass positions
-				float length = distance(pm_a->Position, pm_b->Position);
-				float force = spring.k * (length - spring.restLength);
+				// Vector pointing from one point to the other
+				vec3 unit_vec = pm_a->Position - pm_b->Position;
 
-				vec3 force_dir = normalize(magnitude);
+				// Magnitude of pm_a and pm_b
+				float mag_pa_pb = pow(pm_a->Position.x - pm_b->Position.x, 2) +
+								  pow(pm_a->Position.y - pm_b->Position.y, 2) +
+								  pow(pm_a->Position.z - pm_b->Position.z, 2);
+				mag_pa_pb = sqrt(mag_pa_pb);
+
+				// Compute the force as the
+				// Spring damping coefficient times the difference of the magnitude of pa-pb and spring rest length
+				float force = spring.k * (mag_pa_pb - spring.restLength);
+				vec3 force_dir = normalize(unit_vec);
 
 				vec3 f_a = -force * force_dir;
 				vec3 f_b = force * force_dir;
@@ -96,26 +112,38 @@ class Cage {
 			}
 		}
 
-		void applyForces(vec3 gravity) {
-			for (auto &pointMass : pts) {
-				pointMass.forces += gravity * pointMass.mass;
-			}
-		}
-
 		void verletStep(float deltaTime, float damping) {
 			float deltaTime2 = deltaTime * deltaTime;
 			for (auto &point_mass : pts) {
 				vec3 acceleration = point_mass.forces / point_mass.mass;
 
 				vec3 temp = point_mass.Position;
-				point_mass.Position = point_mass.Position + (1 - damping) * (point_mass.Position - point_mass.previousPosition) +
+				point_mass.Position = point_mass.Position + (1.0f - damping) * (point_mass.Position - point_mass.previousPosition) +
 					(0.5f * acceleration * deltaTime2);
 				point_mass.previousPosition = temp;
 			}
 		}
 
-        void refresh() {
-            setupCage();
+		void springConstrain() {
+			for (auto &spring : springs) {
+				PointMass *pm_a = &pts[spring.v0];
+				PointMass *pm_b = &pts[spring.v1];
+
+				// Euclidean distance
+				const float distance = glm::distance(pm_a->Position, pm_b->Position);
+				// cout<<distance<<"\n";
+
+				if (distance > 1.10 * spring.restLength) {
+					vec3 delta = pm_b->Position - pm_a->Position;
+					float diff = (distance - spring.restLength*1.10f)/distance;
+					pm_a->Position += delta * 0.5f * diff;
+					pm_b->Position -=  delta * 0.5f * diff;
+				}
+			}
+		}
+
+        void refreshMesh() {
+            setupMesh();
         }
 		
 		void Draw(Shader& massShader, Shader& lineShader)
@@ -149,7 +177,7 @@ class Cage {
 		unsigned int VAO, VBO, EBO;
         vector<unsigned int> idx;
 
-		void setupCage() {
+		void setupMesh() {
 			glGenVertexArrays(1, &VAO);
 			glGenBuffers(1, &VBO);
 			glGenBuffers(1, &EBO);
@@ -164,12 +192,12 @@ class Cage {
 			// bind pointmass vertex data
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, pts.size() * sizeof(PointMass), &pts[0], GL_DYNAMIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, pts.size() * sizeof(PointMass), &pts[0], GL_STATIC_DRAW);
 
 			// bind ebo spring data 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, idx.size() * sizeof(unsigned int),
-				&idx[0], GL_DYNAMIC_DRAW);
+				&idx[0], GL_STATIC_DRAW);
 
 			// positions
 			glEnableVertexAttribArray(0);
@@ -220,20 +248,21 @@ class Cube : public Cage {
 						bool isTopY = (j + 1 == nodesPerEdge);
 
 						// connect to top
+						float k_val = 2;
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
 						if (!isTopZ) {
 							int upIdx = currIdx + 1;
-							springs.push_back(Spring(currIdx, upIdx, 1));
+							springs.push_back(Spring(currIdx, upIdx, k_val));
 						}
 						// connect to right
 						if (!isTopX) {
 							int rightIdx = currIdx + (nodesPerEdge * nodesPerEdge);
-							springs.push_back(Spring(currIdx, rightIdx, 1));
+							springs.push_back(Spring(currIdx, rightIdx, k_val));
 						}
 						// connect to forward
 						if (!isTopY) {
 							int forIdx = currIdx + nodesPerEdge;
-							springs.push_back(Spring(currIdx, forIdx, 1));
+							springs.push_back(Spring(currIdx, forIdx, k_val));
 						}
 						// connect to diagonal
 						if (!isTopZ && !isTopX && !isTopY) {
@@ -244,10 +273,16 @@ class Cube : public Cage {
 					}
 				}
 			}
+
+			//for (auto& node : nodes) {
+			//	cout << "pt at " << node.Position.x << ", " << node.Position.y << ", " << node.Position.z << endl;
+			//}
+			//cout << endl;
+
 			this->pts = nodes;
 			this->springs = springs;
 			
-			refresh();
+			refreshMesh();
 		}
 };
 

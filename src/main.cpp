@@ -248,7 +248,9 @@ int main() {
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
 
-	Cube c(2, 1, vec3(0.0f, 5.0f, 0.0f));
+	// load some point masses
+	vec3 start(0.0f, 10.0f, 0.0f);
+	Cube c(2, 2, start);
 
 	// render loop
 	while (!glfwWindowShouldClose(window)) {
@@ -264,6 +266,17 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+
+		// Cube's spring forces should account for the resistance and point mass
+		// forces should be mutated because of that
+
+		// Verlet
+		c.applyForces(vec3(0.0f, -9.81f, 0.0f));
+		c.springCorrectionForces();
+		c.verletStep(deltaTime, .20);
+		c.springConstrain();
+		c.satisfyConstraints(0.0f);
+		c.refreshMesh();
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
