@@ -43,8 +43,9 @@ struct Spring {
 		this->v0 = v0;
 		this->v1 = v1;
 		this->k = k;
+
 		// Set to some constant, its a cube so all would the same distance, how far are positions from one another typically
-		this->restLength = 1/3;
+		this->restLength = 1.0f/3.0f;
 	}
 };
 
@@ -76,17 +77,32 @@ class Cage {
 			}
 		}
 
+
+		void applyForces(vec3 gravity) {
+			for (auto &pointMass : pts) {
+				// pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
+				pointMass.forces += gravity * pointMass.mass;
+			}
+		}
+
 		void springCorrectionForces() {
 			for (auto &spring : springs) {
 				PointMass *pm_a = &pts[spring.v0];
 				PointMass *pm_b = &pts[spring.v1];
-				vec3 magnitude = pm_a->Position - pm_b->Position;
 
-				// Euclidean Distance between the two point mass positions
-				float length = distance(pm_a->Position, pm_b->Position);
-				float force = spring.k * (length - spring.restLength);
+				// Vector pointing from one point to the other
+				vec3 unit_vec = pm_a->Position - pm_b->Position;
 
-				vec3 force_dir = normalize(magnitude);
+				// Magnitude of pm_a and pm_b
+				float mag_pa_pb = pow(pm_a->Position.x - pm_b->Position.x, 2) +
+								  pow(pm_a->Position.y - pm_b->Position.y, 2) +
+								  pow(pm_a->Position.z - pm_b->Position.z, 2);
+				mag_pa_pb = sqrt(mag_pa_pb);
+
+				// Compute the force as the
+				// Spring damping coefficient times the difference of the magnitude of pa-pb and spring rest length
+				float force = spring.k * (mag_pa_pb - spring.restLength);
+				vec3 force_dir = normalize(unit_vec);
 
 				vec3 f_a = -force * force_dir;
 				vec3 f_b = force * force_dir;
@@ -96,21 +112,33 @@ class Cage {
 			}
 		}
 
-		void applyForces(vec3 gravity) {
-			for (auto &pointMass : pts) {
-				pointMass.forces += gravity * pointMass.mass;
-			}
-		}
-
 		void verletStep(float deltaTime, float damping) {
 			float deltaTime2 = deltaTime * deltaTime;
 			for (auto &point_mass : pts) {
 				vec3 acceleration = point_mass.forces / point_mass.mass;
 
 				vec3 temp = point_mass.Position;
-				point_mass.Position = point_mass.Position + (1 - damping) * (point_mass.Position - point_mass.previousPosition) +
+				point_mass.Position = point_mass.Position + (1.0f - damping) * (point_mass.Position - point_mass.previousPosition) +
 					(0.5f * acceleration * deltaTime2);
 				point_mass.previousPosition = temp;
+			}
+		}
+
+		void springConstrain() {
+			for (auto &spring : springs) {
+				PointMass *pm_a = &pts[spring.v0];
+				PointMass *pm_b = &pts[spring.v1];
+
+				// Euclidean distance
+				const float distance = glm::distance(pm_a->Position, pm_b->Position);
+				// cout<<distance<<"\n";
+
+				if (distance > 1.10 * spring.restLength) {
+					vec3 delta = pm_b->Position - pm_a->Position;
+					float diff = (distance - spring.restLength*1.10f)/distance;
+					pm_a->Position += delta * 0.5f * diff;
+					pm_b->Position -=  delta * 0.5f * diff;
+				}
 			}
 		}
 

@@ -235,11 +235,21 @@ int main() {
 		// Cube's spring forces should account for the resistance and point mass
 		// forces should be mutated because of that
 
+
+		// c.refreshMesh();
+		c.applyForces(vec3(0.0f, -9.81f, 0.0f));
+
+		c.springCorrectionForces();
+		// c.refreshMesh();
+
 		// Verlet
-		c.applyForces(glm::vec3(0.0f, -9.81f, 0.0f));
+
 		c.verletStep(deltaTime, .80);
 		c.satisfyConstraints(0.0f);
 		c.refreshMesh();
+
+		// c.springConstrain();
+		// c.refreshMesh();
 
 		mat4 projection;
 		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
