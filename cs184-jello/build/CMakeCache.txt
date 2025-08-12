@@ -249,9 +249,6 @@ PKG_CONFIG_ARGN:STRING=
 //pkg-config executable
 PKG_CONFIG_EXECUTABLE:FILEPATH=/opt/homebrew/bin/pkg-config
 
-//The directory containing a CMake configuration file for assimp.
-assimp_DIR:PATH=/opt/homebrew/lib/cmake/assimp-6.0
-
 //Value Computed by CMake
 cs184-jello_BINARY_DIR:STATIC=/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/build
 

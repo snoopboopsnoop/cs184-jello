@@ -39,6 +39,10 @@ float lastFrame = 0.0f;
 // light
 vec3 lightPos(1.2f, 1.0f, 2.0f);
 
+// specular highlights
+vec3 specularColor(1.0f, 1.0f, 1.0f);
+
+
 // frustum
 const float fclip = 100.0f;
 const float nclip = 1.0f;
@@ -84,6 +88,13 @@ int main() {
 	glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
 	glEnable(GL_DEPTH_TEST);
+
+	// enable blending for translucency
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// disabling face culling allows translucency from all angles
+	glDisable(GL_CULL_FACE);
 
 	//--------------------------------------------------------------
 
@@ -249,6 +260,7 @@ int main() {
 
 	// load models
 	// -----------
+	// these 2 lines for crystal to comment out when basic translucency not working
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
 
@@ -280,7 +292,31 @@ int main() {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+		//// wireframe mode (commented out bc translucency wants solid rendering)
+		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+		vec3 lightColor;
+		lightColor.x = sin(glfwGetTime() * 2.0f);
+		lightColor.y = sin(glfwGetTime() * 0.7f);
+		lightColor.z = sin(glfwGetTime() * 1.3f);
+
+		vec3 diffuseColor = lightColor * vec3(0.5f);
+		vec3 ambientColor = diffuseColor * vec3(0.2f);
+
+		ourShader.use();
+		ourShader.setVec3("DiffuseColor", diffuseColor);
+		ourShader.setVec3("SpecularColor", specularColor);
+		ourShader.setVec3("lightPos", lightPos);
+		ourShader.setVec3("eyePos", cam.Position);
+
+		/* no LUT texture code needed, we do basic translucency
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, skinLUTTextureID);
+		ourShader.setInt("skinLUT", 0);
+		*/
+
+		ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		ourShader.setVec3("viewPos", cam.Position);
 
 		// Cube's spring forces should account for the resistance and point mass
 		// forces should be mutated because of that
@@ -311,7 +347,7 @@ int main() {
 		planeShader.setMat4("view", view);
 		planeShader.setMat4("projection", projection);
 		planeShader.setMat4("model", mat4(1.0f));
-		
+
 		glBindVertexArray(floorVAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
@@ -336,6 +372,10 @@ int main() {
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
 	}
+
+	// de-allocate resources
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 
 	// clean glfw resources
 	glfwTerminate();
