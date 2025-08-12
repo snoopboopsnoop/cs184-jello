@@ -13,6 +13,7 @@ using namespace std;
 using namespace glm;
 
 #include "shader.h"
+#include "bbox.h"
 
 struct Vertex {
 	vec3 Position;
@@ -31,6 +32,7 @@ struct Mesh {
 		vector<Vertex> vertices;
 		vector<unsigned int> indices;
 		vector<Texture> textures;
+		BBox bbox;
 
 		Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures) {
 			this->vertices = vertices;
@@ -38,6 +40,12 @@ struct Mesh {
 			this->textures = textures;
 
 			setupMesh();
+		}
+
+		Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures, BBox box)
+			: Mesh(vertices, indices, textures) {
+
+			this->bbox = box;
 		}
 		
 		void Draw(Shader& shader)

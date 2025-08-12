@@ -20,28 +20,45 @@
 #include "camera.h"
 #include "mesh.h"
 #include "cage.h"
+#include "bbox.h"
 
 using namespace std;
 using namespace glm;
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
+enum DrawMode {
+    OBJECT,
+    PHYSICS,
+};
+
 class Model {
     public:
-        Model();
-
-        Model(string path)
+        Model(string path, ModelShader shaders, bool isRigid = true)
         {
+            this->shaders = shaders;
+            this->isRigid = isRigid;
             loadModel(path);
         }
 
-        void Draw(Shader& shader) {
-            //int sum = 0;
-            for (unsigned int i = 0; i < meshes.size(); i++) {
-                meshes[i].Draw(shader);
-                //sum += meshes[i].vertices.size();
+        void Draw(DrawMode mode) {
+            if (mode == OBJECT) {
+                for (unsigned int i = 0; i < meshes.size(); i++) {
+                    shaders.matShader->use();
+                    meshes[i].Draw(*(shaders.matShader));
+                }
             }
-            //cout << "model has " << sum << " vertices" << endl;
+            if (mode == PHYSICS) {
+                cage.Draw(*(shaders.ptMassShader), *(shaders.springShader));
+            }
+        }
+
+        unsigned int numVertices() {
+            unsigned int sum = 0;
+            for (Mesh m : meshes) {
+                sum += m.vertices.size();
+            }
+            return sum;
         }
 
     private:
@@ -50,6 +67,8 @@ class Model {
         string directory;
         vector<Texture> textures_loaded;
         Cage cage;
+        bool isRigid = true;
+        ModelShader shaders;
 
         void loadModel(string path) {
             Assimp::Importer importer;
@@ -64,6 +83,9 @@ class Model {
             }
             directory = path.substr(0, path.find_last_of('/'));
             processNode(scene->mRootNode, scene);
+            if (!isRigid) {
+                processCage();
+            }
         }
 
         void processNode(aiNode* node, const aiScene* scene) {
@@ -76,14 +98,21 @@ class Model {
             }
         }
 
-        Cage processCage() {
-
+        void processCage() {
+            cage = Cube(2, 1, vec3(0.0f, 3.0f, 0.0f));
         }
 
         Mesh processMesh(aiMesh* mesh, const aiScene* scene) {
             vector<Vertex> vertices;
             vector<unsigned int> indices;
             vector<Texture> textures;
+
+            
+            aiAABB bb = mesh->mAABB;
+            vec3 min(bb.mMin.x, bb.mMin.y, bb.mMin.z);
+            vec3 max(bb.mMax.x, bb.mMax.y, bb.mMax.z);
+
+            BBox b(min, max);
 
             for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
                 Vertex vertex;
@@ -127,7 +156,7 @@ class Model {
                 textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
             }
 
-            return Mesh(vertices, indices, textures);
+            return Mesh(vertices, indices, textures, b);
         }
 
 
@@ -155,10 +184,6 @@ class Model {
             }
             return textures;
         }
-
-    
-
-    
 };
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma)

@@ -19,10 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\bbox.h" />
     <ClInclude Include="..\src\cage.h" />
     <ClInclude Include="..\src\camera.h" />
     <ClInclude Include="..\src\mesh.h" />
     <ClInclude Include="..\src\model.h" />
+    <ClInclude Include="..\src\modelShader.h" />
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
@@ -38,6 +40,8 @@
     <None Include="..\src\shaders\pt_shader.vertex" />
     <None Include="..\src\shaders\shader.fs" />
     <None Include="..\src\shaders\shader.vs" />
+    <None Include="..\src\shaders\translucent.frag" />
+    <None Include="..\src\shaders\translucent.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\glad.c" />

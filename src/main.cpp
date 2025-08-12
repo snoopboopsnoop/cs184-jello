@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 
+#include "modelShader.h"
 #include "shader.h"
 #include "stb_image.h"
 #include "camera.h"
@@ -49,6 +50,9 @@ const float nclip = 1.0f;
 // physics
 const float dt = 1.0f / 60;
 float tAccum = 0.0f;
+
+// render settings
+DrawMode mode = OBJECT;
 
 int main() {
 	// glfw initialization & configuration
@@ -248,12 +252,23 @@ int main() {
 	//--------------------------------------------------------------
 
 	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
-	//Shader ourShader("./shaders/translucent.vert", "./shaders/translucent.frag");
-
+	Shader translucentShader("./shaders/translucent.vert", "./shaders/translucent.frag");
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
 	Shader ptShader("./shaders/pt_shader.vertex", "./shaders/pt_shader.frag");
 	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
 	Shader planeShader("./shaders/plane_shader.vertex", "./shaders/plane_shader.frag");
+
+	// jello shaders
+	ModelShader jelloShader;
+	jelloShader.ptMassShader = &ptShader;
+	jelloShader.springShader = &lineShader;
+	jelloShader.matShader = &planeShader;
+
+	// plate shaders
+	ModelShader plateShader;
+	plateShader.ptMassShader = &ptShader;
+	plateShader.springShader = &lineShader;
+	plateShader.matShader = &ourShader;
 
 	//--------------------------------------------------------------
 
@@ -261,12 +276,12 @@ int main() {
 
 	// load models
 	// -----------
+
 	string modelPath = "resources/objects/jello/jello.obj";
-	Model ourModel(modelPath);
+	Model ourModel(modelPath, jelloShader, false);
 
 	string platePath = "resources/objects/plate/plate.obj";
-	Model plateModel(platePath);
-
+	Model plateModel(platePath, plateShader);
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
@@ -293,42 +308,11 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		// glClearColor(1.0f, 0.87f, 0.93f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//// wireframe mode (commented out bc translucency wants solid rendering)
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-		vec3 lightColor;
-
-		float t = 0.5f + 0.5f * sin(glfwGetTime() * 0.5f);
-		lightColor.x = t; // 0 to 1
-		lightColor.y = 0.0f; // no green
-		lightColor.z = 1.0f - t; // 1 to 0 blue to red
-
-		// lightColor.x = 1.0f;
-		// lightColor.y = 0.5f * (0.4f + 0.6f);
-		// lightColor.z = 0.5f * (0.4f + 0.6f);
-
-		vec3 diffuseColor = lightColor * vec3(0.8f);
-		vec3 ambientColor = diffuseColor * vec3(0.6f);
-
-		ourShader.use();
-		ourShader.setVec3("DiffuseColor", diffuseColor);
-		ourShader.setVec3("AmbientColor", ambientColor);
-		ourShader.setVec3("SpecularColor", specularColor);
-		ourShader.setVec3("lightPos", lightPos);
-		ourShader.setVec3("eyePos", cam.Position);
-
-		/* no LUT texture code needed, we do basic translucency
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, skinLUTTextureID);
-		ourShader.setInt("skinLUT", 0);
-		*/
-
-		ourShader.setVec3("objectColor", 1.0f, 0.87f, 0.93f);
-		ourShader.setVec3("viewPos", cam.Position);
 
 		// Cube's spring forces should account for the resistance and point mass
 		// forces should be mutated because of that
@@ -352,21 +336,24 @@ int main() {
 		mat4 view = cam.GetViewMatrix();
 		mat4 projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, nclip, fclip);
 
+		ourShader.use();
 		ourShader.setMat4("view", view);
 		ourShader.setMat4("projection", projection);
 
-
 		// render plane
+		vec3 planeColor(0.2f, 0.3f, 0.2f);
+
 		planeShader.use();
 		planeShader.setMat4("view", view);
 		planeShader.setMat4("projection", projection);
 		planeShader.setMat4("model", mat4(1.0f));
+		planeShader.setVec3("objColor", planeColor);
 
 		glBindVertexArray(floorVAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
-		// render cube
+		//// render cube
 		ptShader.use();
 		ptShader.setMat4("view", view);
 		ptShader.setMat4("projection", projection);
@@ -377,7 +364,17 @@ int main() {
 		lineShader.setMat4("projection", projection);
 		lineShader.setMat4("model", mat4(1.0f));
 
-		c.Draw(ptShader, lineShader);
+		planeShader.use();
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
+		planeShader.setMat4("model", model);
+
+		vec3 jelloColor(0.9f, 0.3f, 0.3f);
+		planeShader.setVec3("objColor", jelloColor);
+
+		ourModel.Draw(mode);
+
+		//c.Draw(ptShader, lineShader);
 
 		//// render PLATE model behind jello
 		//ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
@@ -396,19 +393,24 @@ int main() {
 		//plateModel.Draw(ourShader);
 		//glEnable(GL_BLEND);
 
-		//// render JELLO model
-		//ourShader.setVec3("objectColor", 1.0f, 0.87f, 0.93f);
-		//diffuseColor = lightColor * vec3(0.6f);
-		//ambientColor = diffuseColor * vec3(0.8f);
-		//ourShader.setVec3("DiffuseColor", diffuseColor);
-		//ourShader.setVec3("AmbientColor", ambientColor);
+		// render JELLO model
+		/*vec3 lightColor(1.0f, 1.0f, 1.0f);
+		vec3 diffuseColor = lightColor * vec3(0.6f);
+		vec3 ambientColor = diffuseColor * vec3(0.8f);
+		vec3 specularColor = vec3(1.0f, 1.0f, 1.0f);
 
-		//glm::mat4 model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(0.0f, -0.54f, 0.0f));
-		//model = glm::scale(model, glm::vec3(1.45f, 1.45f, 1.45f));
-		//ourShader.setMat4("model", model);
+		translucentShader.use();
+		translucentShader.setVec3("DiffuseColor", diffuseColor);
+		translucentShader.setVec3("AmbientColor", ambientColor);
+		translucentShader.setVec3("SpecularColor", specularColor);
+		translucentShader.setVec3("lightPos", lightPos);
+		translucentShader.setVec3("eyePos", cam.Position);*/
 
-		//ourModel.Draw(ourShader);
+		/*glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
+		translucentShader.setMat4("model", model);
+
+		ourModel.Draw(mode);*/
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
@@ -445,6 +447,12 @@ void processInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
 		cam.ProcessKeyboard(DOWN, deltaTime);
+	}
+	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+		mode = OBJECT;
+	}
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
+		mode = PHYSICS;
 	}
 }
 
