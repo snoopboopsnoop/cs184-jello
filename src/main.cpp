@@ -253,18 +253,18 @@ int main() {
 	Model ourModel(modelPath);
 
 	// load some point masses
-	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(1, 1, start);
-	/*vector<PointMass> pts;
-	pts.push_back(PointMass(vec3(0.0f, 0.0f, -0.5f), 1));
-	pts.push_back(PointMass(vec3(0.0f, 0.0f, 0.5f), 1));
+	/*vec3 start(0.0f, 5.0f, 0.0f);
+	Cube c(1, 1, start);*/
+	vector<PointMass> pts;
+	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
+	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
 	
 	vector<Spring> springs;
-	springs.push_back(Spring(0, 1, 1.0f, 1));
+	springs.push_back(Spring(0, 1, 20.0f, 1));
 	
-	vec3 pos(0.0f, 10.0f, 0.0f);
+	vec3 pos(0.0f, 5.0f, 0.0f);
 
-	Cage c(pts, springs, pos);*/
+	Cage c(pts, springs, pos);
 
 	// render loop
 	lastFrame = glfwGetTime();
@@ -291,8 +291,7 @@ int main() {
 		if (tAccum >= dt) {
 			// Verlet
 			c.applyForces(vec3(0.0f, -9.81f, 0.0f));
-			c.springCorrectionForces();
-			c.verletStep(dt, .20);
+			c.verletStep(dt, 0.0f);
 			c.springConstrain();
 			c.satisfyConstraints(0.0f);
 			c.refreshMesh();

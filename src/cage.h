@@ -81,7 +81,7 @@ class Cage {
 			for (auto &pointMass : pts) {
 				pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
 
-				if (pointMass.Position.y + pos.y >= 0) {
+				if (pointMass.Position.y + pos.y > 0) {
 					pointMass.forces += gravity * pointMass.mass;
 				}
 			}
@@ -101,6 +101,10 @@ class Cage {
 				// Compute the force as the
 				// Spring damping coefficient times the difference of the magnitude of pa-pb and spring rest length
 				float force = spring.k * (m_ab - spring.restLength);
+
+				if (m_ab == 0) {
+					cout << "uh oh spring length is 0" << endl;
+				}
 				vec3 force_dir = normalize(ab);
 
 				vec3 f_a = -force * force_dir;
@@ -121,9 +125,10 @@ class Cage {
 								+ (v_dt)
 								+ accel * deltaTime * deltaTime;
 
-				/*if (&point_mass == &pts[0]) {
-					cout << "dt = " << deltaTime << " | ";
-					cout << "dt^2 = " << deltaTime2 << " | ";
+				if (&point_mass == &pts[0]) {
+					cout << "force: (" << point_mass.forces.x << ", "
+						<< point_mass.forces.y << ", "
+						<< point_mass.forces.z << ") | ";
 					cout << "a = (" << accel.x << ", " << accel.y << ", " << accel.z << ") | ";
 					cout << "t = " << glfwGetTime() << " | ";
 					cout << "("
@@ -134,7 +139,7 @@ class Cage {
 						", " << nextPos.y + pos.y <<
 						", " << nextPos.z + pos.z << ") | ";
 					cout << "v dt = (" << v_dt.x << ", " << v_dt.y << ", " << v_dt.z << ")" << endl;
-				}*/
+				}
 
 				point_mass.previousPosition = point_mass.Position;
 				point_mass.Position = nextPos;
@@ -142,6 +147,8 @@ class Cage {
 		}
 
 		void springConstrain() {
+			const float minDist = 0.01;
+
 			for (auto &spring : springs) {
 				PointMass *pm_a = &pts[spring.v0];
 				PointMass *pm_b = &pts[spring.v1];
@@ -149,13 +156,21 @@ class Cage {
 				// Euclidean distance
 				const float distance = glm::distance(pm_a->Position, pm_b->Position);
 				// cout<<distance<<"\n";
+				vec3 delta = pm_b->Position - pm_a->Position;
+				vec3 ab_norm = normalize(delta);
+
+				if (distance < minDist) {
+					float diff = (minDist - minDist);
+					pm_a->Position -= 0.5f * diff * ab_norm;
+					pm_b->Position += 0.5f * diff * ab_norm;
+				}
 
 				if (distance > 1.10 * spring.restLength) {
-					vec3 delta = pm_b->Position - pm_a->Position;
 					float diff = (distance - spring.restLength*1.10f)/distance;
 					pm_a->Position += delta * 0.5f * diff;
 					pm_b->Position -=  delta * 0.5f * diff;
 				}
+				
 			}
 		}
 
@@ -271,80 +286,83 @@ class Cube : public Cage {
 
 						// connect to top
 						float k_val = 150;
-						float rl = 1.0f / nodesPerEdge;
+						float rl_edge = 1.0f / nodesPerEdge;
+						float rl_shear = sqrt(2 * rl_edge * rl_edge);
+						float rl_body = sqrt(rl_shear * rl_shear + rl_edge * rl_edge);
 
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
+						// connect z-axis edge
 						if (!isTopZ) {
 							int upIdx = currIdx + 1;
-							springs.push_back(Spring(currIdx, upIdx, k_val, rl));
+							springs.push_back(Spring(currIdx, upIdx, k_val, rl_edge));
 						}
-						// connect to right
+						// connect x-axis edge
 						if (!isTopX) {
 							int rightIdx = currIdx + (nodesPerEdge * nodesPerEdge);
-							springs.push_back(Spring(currIdx, rightIdx, k_val, rl));
+							springs.push_back(Spring(currIdx, rightIdx, k_val, rl_edge));
 						}
-						// connect to forward
+						// connect y-axis edge
 						if (!isTopY) {
 							int forIdx = currIdx + nodesPerEdge;
-							springs.push_back(Spring(currIdx, forIdx, k_val, rl));
+							springs.push_back(Spring(currIdx, forIdx, k_val, rl_edge));
 						}
 
 						// connect to (x + 1, z + 1) | across x-z face
 						if (!isTopZ && !isTopX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
 						}
 						// connect to (y + 1, z + 1) | across y-z face
 						if (!isTopZ && !isTopY) {
 							int crossIdx = currIdx + 1 + nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
 						}
 						// connect to (x + 1, y + 1) | across x-y face
 						if (!isTopX && !isTopY) {
 							int crossIdx = currIdx + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
 						}
 
 						// connect to (y + 1, z - 1) | across y-z face down
 						if (!isBottomZ && !isTopY) {
 							int crossIdx = currIdx - 1 + nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
 						}
 
 						// connect to (x + 1, z - 1) | across x-z face down
 						if (!isBottomZ && !isTopX) {
 							int crossIdx = currIdx - 1 + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
 						}
 						
 						// connect to (x + 1, y - 1) | across x-y face down
 						if (!isTopX && !isBottomY) {
 							int crossIdx = currIdx - nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
 						}
 
 						// connect to (x + 1, y + 1, z + 1) | across body
 						if (!isTopZ && !isTopY && !isTopX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
 						}
 
 						// connect to (x + 1, y + 1, z - 1) | across body down
 						if (!isBottomZ && !isTopY && !isTopX) {
 							int crossIdx = currIdx - 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
 						}
 
 						// connect to (x + 1, y - 1, z + 1) | across body down
 						if (!isTopZ && !isBottomY && !isTopX) {
 							int crossIdx = currIdx + 1 - nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
 						}
 
 						// connect to (x - 1, y + 1, z + 1) | across body down
 						if (!isTopZ && !isTopY && !isBottomX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge - nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
 						}
 					}
 				}
