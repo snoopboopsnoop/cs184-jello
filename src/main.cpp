@@ -43,6 +43,10 @@ vec3 lightPos(1.2f, 1.0f, 2.0f);
 const float fclip = 100.0f;
 const float nclip = 1.0f;
 
+// physics
+const float dt = 1.0f / 60;
+float tAccum = 0.0f;
+
 int main() {
 	// glfw initialization & configuration
 	glfwInit();
@@ -249,10 +253,21 @@ int main() {
 	Model ourModel(modelPath);
 
 	// load some point masses
-	vec3 start(0.0f, 10.0f, 0.0f);
-	Cube c(2, 2, start);
+	vec3 start(0.0f, 5.0f, 0.0f);
+	Cube c(1, 1, start);
+	/*vector<PointMass> pts;
+	pts.push_back(PointMass(vec3(0.0f, 0.0f, -0.5f), 1));
+	pts.push_back(PointMass(vec3(0.0f, 0.0f, 0.5f), 1));
+	
+	vector<Spring> springs;
+	springs.push_back(Spring(0, 1, 1.0f, 1));
+	
+	vec3 pos(0.0f, 10.0f, 0.0f);
+
+	Cage c(pts, springs, pos);*/
 
 	// render loop
+	lastFrame = glfwGetTime();
 	while (!glfwWindowShouldClose(window)) {
 		// calculate frame time
 		float currentFrame = glfwGetTime();
@@ -270,13 +285,19 @@ int main() {
 		// Cube's spring forces should account for the resistance and point mass
 		// forces should be mutated because of that
 
-		// Verlet
-		c.applyForces(vec3(0.0f, -9.81f, 0.0f));
-		c.springCorrectionForces();
-		c.verletStep(deltaTime, .20);
-		c.springConstrain();
-		c.satisfyConstraints(0.0f);
-		c.refreshMesh();
+		// physics
+		tAccum += deltaTime;
+		//cout << "dt: " << deltaTime << " | accum: " << tAccum << endl;
+		if (tAccum >= dt) {
+			// Verlet
+			c.applyForces(vec3(0.0f, -9.81f, 0.0f));
+			c.springCorrectionForces();
+			c.verletStep(dt, .20);
+			c.springConstrain();
+			c.satisfyConstraints(0.0f);
+			c.refreshMesh();
+			tAccum = 0;
+		}
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
@@ -297,6 +318,16 @@ int main() {
 		glBindVertexArray(0);
 
 		// render cube
+		ptShader.use();
+		ptShader.setMat4("view", view);
+		ptShader.setMat4("projection", projection);
+		ptShader.setMat4("model", mat4(1.0f));
+
+		lineShader.use();
+		lineShader.setMat4("view", view);
+		lineShader.setMat4("projection", projection);
+		lineShader.setMat4("model", mat4(1.0f));
+
 		c.Draw(ptShader, lineShader);
 
 		//// render model

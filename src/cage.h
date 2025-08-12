@@ -19,7 +19,6 @@ struct PointMass {
     vec3 Position;
 	vec3 previousPosition;
 	vec3 forces;
-
     float mass;
 
     PointMass(vec3 pos, float m) {
@@ -39,13 +38,13 @@ struct Spring {
 
     float k;
 
-	Spring(unsigned int v0, unsigned int v1, float k) {
+	Spring(unsigned int v0, unsigned int v1, float k, float rl) {
 		this->v0 = v0;
 		this->v1 = v1;
 		this->k = k;
 
 		// Set to some constant, its a cube so all would the same distance, how far are positions from one another typically
-		this->restLength = 1.0f/3.0f;
+		this->restLength = rl;
 	}
 };
 
@@ -81,7 +80,10 @@ class Cage {
 		void applyForces(vec3 gravity) {
 			for (auto &pointMass : pts) {
 				pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
-				pointMass.forces += gravity * pointMass.mass;
+
+				if (pointMass.Position.y + pos.y >= 0) {
+					pointMass.forces += gravity * pointMass.mass;
+				}
 			}
 		}
 
@@ -91,36 +93,51 @@ class Cage {
 				PointMass *pm_b = &pts[spring.v1];
 
 				// Vector pointing from one point to the other
-				vec3 unit_vec = pm_a->Position - pm_b->Position;
+				vec3 ab = pm_a->Position - pm_b->Position;
 
 				// Magnitude of pm_a and pm_b
-				float mag_pa_pb = pow(pm_a->Position.x - pm_b->Position.x, 2) +
-								  pow(pm_a->Position.y - pm_b->Position.y, 2) +
-								  pow(pm_a->Position.z - pm_b->Position.z, 2);
-				mag_pa_pb = sqrt(mag_pa_pb);
+				float m_ab = length(ab);
 
 				// Compute the force as the
 				// Spring damping coefficient times the difference of the magnitude of pa-pb and spring rest length
-				float force = spring.k * (mag_pa_pb - spring.restLength);
-				vec3 force_dir = normalize(unit_vec);
+				float force = spring.k * (m_ab - spring.restLength);
+				vec3 force_dir = normalize(ab);
 
 				vec3 f_a = -force * force_dir;
-				vec3 f_b = force * force_dir;
 
 				pm_a->forces += f_a;
-				pm_b->forces += f_b;
+				pm_b->forces -= f_a;
 			}
 		}
 
 		void verletStep(float deltaTime, float damping) {
 			float deltaTime2 = deltaTime * deltaTime;
 			for (auto &point_mass : pts) {
-				vec3 acceleration = point_mass.forces / point_mass.mass;
+				vec3 accel = point_mass.forces / point_mass.mass;
 
-				vec3 temp = point_mass.Position;
-				point_mass.Position = point_mass.Position + (1.0f - damping) * (point_mass.Position - point_mass.previousPosition) +
-					(0.5f * acceleration * deltaTime2);
-				point_mass.previousPosition = temp;
+				vec3 v_dt = point_mass.Position - point_mass.previousPosition;
+
+				vec3 nextPos = point_mass.Position
+								+ (v_dt)
+								+ accel * deltaTime * deltaTime;
+
+				/*if (&point_mass == &pts[0]) {
+					cout << "dt = " << deltaTime << " | ";
+					cout << "dt^2 = " << deltaTime2 << " | ";
+					cout << "a = (" << accel.x << ", " << accel.y << ", " << accel.z << ") | ";
+					cout << "t = " << glfwGetTime() << " | ";
+					cout << "("
+						<< point_mass.Position.x + pos.x << ", "
+						<< point_mass.Position.y + pos.y << ", "
+						<< point_mass.Position.z + pos.z << ")";
+					cout << " -> (" << nextPos.x + pos.x <<
+						", " << nextPos.y + pos.y <<
+						", " << nextPos.z + pos.z << ") | ";
+					cout << "v dt = (" << v_dt.x << ", " << v_dt.y << ", " << v_dt.z << ")" << endl;
+				}*/
+
+				point_mass.previousPosition = point_mass.Position;
+				point_mass.Position = nextPos;
 			}
 		}
 
@@ -200,11 +217,12 @@ class Cage {
 				&idx[0], GL_STATIC_DRAW);
 
 			// positions
-			glEnableVertexAttribArray(0);
 			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PointMass), (void*)0);
+			glEnableVertexAttribArray(0);
 			// weight
-			glEnableVertexAttribArray(1);
+			
 			glVertexAttribPointer(1, 1, GL_FLOAT, GL_FALSE, sizeof(PointMass), (void*)offsetof(PointMass, Position));
+			glEnableVertexAttribArray(1);
 
 			glBindVertexArray(0);
 		}
@@ -247,29 +265,87 @@ class Cube : public Cage {
 						bool isTopX = (i + 1 == nodesPerEdge);
 						bool isTopY = (j + 1 == nodesPerEdge);
 
+						bool isBottomZ = (k == 0);
+						bool isBottomX = (i == 0);
+						bool isBottomY = (j == 0);
+
 						// connect to top
-						float k_val = 2;
+						float k_val = 150;
+						float rl = 1.0f / nodesPerEdge;
+
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
 						if (!isTopZ) {
 							int upIdx = currIdx + 1;
-							springs.push_back(Spring(currIdx, upIdx, k_val));
+							springs.push_back(Spring(currIdx, upIdx, k_val, rl));
 						}
 						// connect to right
 						if (!isTopX) {
 							int rightIdx = currIdx + (nodesPerEdge * nodesPerEdge);
-							springs.push_back(Spring(currIdx, rightIdx, k_val));
+							springs.push_back(Spring(currIdx, rightIdx, k_val, rl));
 						}
 						// connect to forward
 						if (!isTopY) {
 							int forIdx = currIdx + nodesPerEdge;
-							springs.push_back(Spring(currIdx, forIdx, k_val));
-						}
-						// connect to diagonal
-						if (!isTopZ && !isTopX && !isTopY) {
-							int crossIdx = currIdx + 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1));
+							springs.push_back(Spring(currIdx, forIdx, k_val, rl));
 						}
 
+						// connect to (x + 1, z + 1) | across x-z face
+						if (!isTopZ && !isTopX) {
+							int crossIdx = currIdx + 1 + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+						// connect to (y + 1, z + 1) | across y-z face
+						if (!isTopZ && !isTopY) {
+							int crossIdx = currIdx + 1 + nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+						// connect to (x + 1, y + 1) | across x-y face
+						if (!isTopX && !isTopY) {
+							int crossIdx = currIdx + nodesPerEdge + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+
+						// connect to (y + 1, z - 1) | across y-z face down
+						if (!isBottomZ && !isTopY) {
+							int crossIdx = currIdx - 1 + nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+
+						// connect to (x + 1, z - 1) | across x-z face down
+						if (!isBottomZ && !isTopX) {
+							int crossIdx = currIdx - 1 + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+						
+						// connect to (x + 1, y - 1) | across x-y face down
+						if (!isTopX && !isBottomY) {
+							int crossIdx = currIdx - nodesPerEdge + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+
+						// connect to (x + 1, y + 1, z + 1) | across body
+						if (!isTopZ && !isTopY && !isTopX) {
+							int crossIdx = currIdx + 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+
+						// connect to (x + 1, y + 1, z - 1) | across body down
+						if (!isBottomZ && !isTopY && !isTopX) {
+							int crossIdx = currIdx - 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+
+						// connect to (x + 1, y - 1, z + 1) | across body down
+						if (!isTopZ && !isBottomY && !isTopX) {
+							int crossIdx = currIdx + 1 - nodesPerEdge + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
+
+						// connect to (x - 1, y + 1, z + 1) | across body down
+						if (!isTopZ && !isTopY && !isBottomX) {
+							int crossIdx = currIdx + 1 + nodesPerEdge - nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1, rl));
+						}
 					}
 				}
 			}
