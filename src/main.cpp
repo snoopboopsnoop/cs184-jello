@@ -42,7 +42,6 @@ vec3 lightPos(1.2f, 1.0f, 2.0f);
 // specular highlights
 vec3 specularColor(1.0f, 1.0f, 1.0f);
 
-
 // frustum
 const float fclip = 100.0f;
 const float nclip = 1.0f;
@@ -263,11 +262,15 @@ int main() {
 
 	// load models
 	// -----------
-	// these 2 lines for crystal to comment out when basic translucency not working
 	string modelPath = "resources/objects/jello/jello.obj";
-	cout << "Loading model from: " << modelPath << endl;
+	cout << "Loading jello from: " << modelPath << endl;
 	Model ourModel(modelPath);
-	cout << "Model load success yippee!!" << endl;
+	cout << "Jello load success yippee!!" << endl;
+
+	string platePath = "resources/objects/plate/plate.obj";
+	cout << "Loading plate from: " << modelPath << endl;
+	Model plateModel(platePath);
+	cout << "Plate load success yippee!!" << endl;
 
 /* COMMENTING OUT CUBE N CAGE STUFF
 	// load some point masses
@@ -312,8 +315,8 @@ int main() {
 		// lightColor.y = 0.5f + 0.5f * sin(glfwGetTime() * 0.7f);
 		// lightColor.z = 0.5f + 0.5f * sin(glfwGetTime() * 1.3f);
 
-		vec3 diffuseColor = lightColor * vec3(1.0f);
-		vec3 ambientColor = diffuseColor * vec3(0.4f);
+		vec3 diffuseColor = lightColor * vec3(0.8f);
+		vec3 ambientColor = diffuseColor * vec3(0.6f);
 
 		ourShader.use();
 		ourShader.setVec3("DiffuseColor", diffuseColor);
@@ -379,13 +382,23 @@ int main() {
 
 		c.Draw(ptShader, lineShader);
 */
-		// render jello model
-		// ourShader.use();
+		// render PLATE model behind jello
+		ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
 
-		// view projection matrix stuff
+		glm::mat4 plateModelMatrix = glm::mat4(1.0f);
+		plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, -0.6f,-0.4f));
+		plateModelMatrix = glm::scale(plateModelMatrix, glm::vec3(2.5f, 1.5f, 2.5f));
+		ourShader.setMat4("model", plateModelMatrix);
+
+		// no translucency blending for plate
+		glDisable(GL_BLEND);
+		plateModel.Draw(ourShader);
+		glEnable(GL_BLEND);
+
+		// render JELLO model
 		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f)); // Make it a bit bigger
+		model = glm::translate(model, glm::vec3(0.0f, -0.54f, 0.0f));
+		model = glm::scale(model, glm::vec3(1.45f, 1.45f, 1.45f));
 		ourShader.setMat4("model", model);
 
 		ourModel.Draw(ourShader);
