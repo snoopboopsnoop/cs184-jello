@@ -215,22 +215,32 @@ class Cube : public Cage {
 										start + ((float)j / nodesPerLength),
 										start + ((float)k / nodesPerLength)), 1));
 						
+						bool isTopZ = (k + 1 == nodesPerEdge);
+						bool isTopX = (i + 1 == nodesPerEdge);
+						bool isTopY = (j + 1 == nodesPerEdge);
+
 						// connect to top
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
-						if (k + 1 != nodesPerEdge) {
+						if (!isTopZ) {
 							int upIdx = currIdx + 1;
 							springs.push_back(Spring(currIdx, upIdx, 1));
 						}
 						// connect to right
-						if (i + 1 != nodesPerEdge) {
+						if (!isTopX) {
 							int rightIdx = currIdx + (nodesPerEdge * nodesPerEdge);
 							springs.push_back(Spring(currIdx, rightIdx, 1));
 						}
 						// connect to forward
-						if (j + 1 != nodesPerEdge) {
+						if (!isTopY) {
 							int forIdx = currIdx + nodesPerEdge;
 							springs.push_back(Spring(currIdx, forIdx, 1));
 						}
+						// connect to diagonal
+						if (!isTopZ && !isTopX && !isTopY) {
+							int crossIdx = currIdx + 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
+							springs.push_back(Spring(currIdx, crossIdx, 1));
+						}
+
 					}
 				}
 			}

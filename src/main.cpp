@@ -248,9 +248,7 @@ int main() {
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
 
-	// load some point masses
-	vec3 start(0.0f, 10.0f, 0.0f);
-	Cube c(3, 3, start);
+	Cube c(2, 1, vec3(0.0f, 5.0f, 0.0f));
 
 	// render loop
 	while (!glfwWindowShouldClose(window)) {
@@ -266,15 +264,6 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-
-		// Cube's spring forces should account for the resistance and point mass
-		// forces should be mutated because of that
-
-		// Verlet
-		c.applyForces(glm::vec3(0.0f, -9.81f, 0.0f));
-		c.verletStep(deltaTime, .80);
-		c.satisfyConstraints(0.0f);
-		c.refreshMesh();
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
@@ -294,16 +283,12 @@ int main() {
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
-		// render pt masses
-		ptShader.use();
-		ptShader.setMat4("view", view);
-		ptShader.setMat4("projection", projection);
-
-		lineShader.use();
-		lineShader.setMat4("view", view);
-		lineShader.setMat4("projection", projection);
-
+		// render cube
 		c.Draw(ptShader, lineShader);
+
+		//// render model
+		//ourShader.use();
+		//ourModel.Draw(ourShader);
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
