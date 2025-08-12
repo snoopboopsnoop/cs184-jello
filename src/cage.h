@@ -203,7 +203,8 @@ class Cage {
 				}
 
 				if (distance > 1.10 * spring.restLength) {
-					float diff = (distance - spring.restLength*1.10f)/distance;
+					float diff = (distance - spring.restLength*1.10f);
+					//cout << "spring " << diff << "too long | rest length " << spring.restLength << " | actual length " << distance << endl;
 					pm_a->Position += delta * 0.5f * diff;
 					pm_b->Position -=  delta * 0.5f * diff;
 				}
@@ -330,6 +331,7 @@ class Cube : public Cage {
 						float rl_edge = (float) length / (nodesPerEdge - 1);
 						float rl_shear = sqrt(2 * rl_edge * rl_edge);
 						float rl_body = sqrt(rl_shear * rl_shear + rl_edge * rl_edge);
+						float rl_bend = rl_edge * 2;
 
 						//cout << "edge, shear, body: " << rl_edge << " | " << rl_shear << " | " << rl_body << endl;
 
@@ -411,15 +413,15 @@ class Cube : public Cage {
 						// bend
 						if (bendX) {
 							int bendIdx = currIdx + 2 * (nodesPerEdge * nodesPerEdge);
-							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_body));
+							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_bend));
 						}
 						if (bendY) {
 							int bendIdx = currIdx + 2 * (nodesPerEdge);
-							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_body));
+							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_bend));
 						}
 						if (bendZ) {
 							int bendIdx = currIdx + 2;
-							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_body));
+							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_bend));
 						}
 					}
 				}

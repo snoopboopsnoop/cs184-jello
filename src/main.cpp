@@ -285,7 +285,7 @@ int main() {
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(2, 1, start);
+	Cube c(4, 2, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
@@ -365,7 +365,7 @@ int main() {
 		lineShader.setMat4("projection", projection);
 		lineShader.setMat4("model", mat4(1.0f));
 
-		planeShader.use();
+		/*planeShader.use();
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
 		planeShader.setMat4("model", model);
@@ -373,9 +373,9 @@ int main() {
 		vec3 jelloColor(0.9f, 0.3f, 0.3f);
 		planeShader.setVec3("objColor", jelloColor);
 
-		ourModel.Draw(mode);
+		ourModel.Draw(mode);*/
 
-		//c.Draw(ptShader, lineShader);
+		c.Draw(ptShader, lineShader);
 
 		//// render PLATE model behind jello
 		//ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
