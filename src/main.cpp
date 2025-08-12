@@ -39,6 +39,10 @@ float lastFrame = 0.0f;
 // light
 vec3 lightPos(1.2f, 1.0f, 2.0f);
 
+// frustum
+const float fclip = 100.0f;
+const float nclip = 1.0f;
+
 int main() {
 	// glfw initialization & configuration
 	glfwInit();
@@ -154,6 +158,19 @@ int main() {
 
 
 
+	// floor plane
+	float plane[] = {
+		fclip, 0, fclip,
+		fclip, 0, -fclip,
+		-fclip, 0, fclip,
+		-fclip, 0, -fclip
+	};
+
+	unsigned int planeIdx[] = {
+		0, 1, 2,
+		1, 2, 3
+	};
+
 	//--------------------------------------------------------------
 
 	// generate buffers
@@ -189,7 +206,24 @@ int main() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	
+
+	// floor vao
+	unsigned int floorVAO, floorVBO, floorEBO;
+	glGenBuffers(1, &floorVBO);
+	glGenVertexArrays(1, &floorVAO);
+	glGenBuffers(1, &floorEBO);
+
+	glBindVertexArray(floorVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, floorVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(plane), plane, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, floorEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(planeIdx), planeIdx, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
 	//--------------------------------------------------------------
 
 	stbi_set_flip_vertically_on_load(true);
@@ -198,10 +232,12 @@ int main() {
 	unsigned int specularMap = loadTexture("resources/objects/jello/jello_texture.jpg");
 
 	//--------------------------------------------------------------
+
 	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
 	Shader ptShader("./shaders/pt_shader.vertex", "./shaders/pt_shader.frag");
 	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
+	Shader planeShader("./shaders/plane_shader.vertex", "./shaders/plane_shader.frag");
 
 	//--------------------------------------------------------------
 
@@ -231,11 +267,6 @@ int main() {
 
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
-		// camera
-		mat4 view = cam.GetViewMatrix();
-		ourShader.setMat4("view", view);
-
-
 		// Cube's spring forces should account for the resistance and point mass
 		// forces should be mutated because of that
 
@@ -245,9 +276,23 @@ int main() {
 		c.satisfyConstraints(0.0f);
 		c.refreshMesh();
 
+		// camera
+		mat4 view = cam.GetViewMatrix();
+		ourShader.setMat4("view", view);
+
 		mat4 projection;
-		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, nclip, fclip);
 		ourShader.setMat4("projection", projection);
+
+		// render plane
+		planeShader.use();
+		planeShader.setMat4("view", view);
+		planeShader.setMat4("projection", projection);
+		planeShader.setMat4("model", mat4(1.0f));
+		
+		glBindVertexArray(floorVAO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
 
 		// render pt masses
 		ptShader.use();

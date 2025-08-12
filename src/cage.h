@@ -164,12 +164,12 @@ class Cage {
 			// bind pointmass vertex data
 			glBindVertexArray(VAO);
 			glBindBuffer(GL_ARRAY_BUFFER, VBO);
-			glBufferData(GL_ARRAY_BUFFER, pts.size() * sizeof(PointMass), &pts[0], GL_STATIC_DRAW);
+			glBufferData(GL_ARRAY_BUFFER, pts.size() * sizeof(PointMass), &pts[0], GL_DYNAMIC_DRAW);
 
 			// bind ebo spring data 
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 			glBufferData(GL_ELEMENT_ARRAY_BUFFER, idx.size() * sizeof(unsigned int),
-				&idx[0], GL_STATIC_DRAW);
+				&idx[0], GL_DYNAMIC_DRAW);
 
 			// positions
 			glEnableVertexAttribArray(0);
