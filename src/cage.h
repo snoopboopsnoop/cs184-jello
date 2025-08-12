@@ -187,13 +187,14 @@ class Cage {
 			const float minDist = 0.01;
 
 			for (auto &spring : springs) {
+				const float maxDist = 1.1f * spring.restLength;
+
 				PointMass *pm_a = &pts[spring.v0];
 				PointMass *pm_b = &pts[spring.v1];
 
 				// Euclidean distance
 				const float distance = glm::distance(pm_a->Position, pm_b->Position);
 				// cout<<distance<<"\n";
-				vec3 delta = pm_b->Position - pm_a->Position;
 				vec3 ab_norm(0.0f, 1.0f, 0.0f);
 
 				if (distance < minDist) {
@@ -202,9 +203,10 @@ class Cage {
 					pm_b->Position += 0.5f * diff * ab_norm;
 				}
 
-				if (distance > 1.10 * spring.restLength) {
-					float diff = (distance - spring.restLength*1.10f);
-					//cout << "spring " << diff << "too long | rest length " << spring.restLength << " | actual length " << distance << endl;
+				if (distance > maxDist) {
+					float diff = (distance - maxDist);
+					vec3 delta = normalize(pm_b->Position - pm_a->Position);
+					cout << "spring " << diff << "too long | rest length " << spring.restLength << " | actual length " << distance << endl;
 					pm_a->Position += delta * 0.5f * diff;
 					pm_b->Position -=  delta * 0.5f * diff;
 				}
@@ -326,8 +328,8 @@ class Cube : public Cage {
 						bool bendY = (j + 2 < nodesPerEdge);
 						bool bendZ = (k + 2 < nodesPerEdge);
 
-						float k_val = 500;
-						float kd = 6;
+						float k_val = 200;
+						float kd = 3;
 						float rl_edge = (float) length / (nodesPerEdge - 1);
 						float rl_shear = sqrt(2 * rl_edge * rl_edge);
 						float rl_body = sqrt(rl_shear * rl_shear + rl_edge * rl_edge);

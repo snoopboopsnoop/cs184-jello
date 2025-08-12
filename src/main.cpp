@@ -285,7 +285,7 @@ int main() {
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(4, 2, start);
+	Cube c(2, 1, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
