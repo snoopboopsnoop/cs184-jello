@@ -7,10 +7,12 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/CMakeLists.txt"
+  "/Users/crystal/Desktop/CS184/cs184-jello/CMake/Utils.cmake"
+  "/Users/crystal/Desktop/CS184/cs184-jello/CMakeLists.txt"
   "CMakeFiles/4.1.0/CMakeCCompiler.cmake"
   "CMakeFiles/4.1.0/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.1.0/CMakeSystem.cmake"
+  "/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/CMakeLists.txt"
   "/opt/homebrew/lib/cmake/glfw3/glfw3Config.cmake"
   "/opt/homebrew/lib/cmake/glfw3/glfw3ConfigVersion.cmake"
   "/opt/homebrew/lib/cmake/glfw3/glfw3Targets-release.cmake"
@@ -66,9 +68,10 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "cs184-jello/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/cs184-jello.dir/DependInfo.cmake"
+  "cs184-jello/CMakeFiles/cs184-jello.dir/DependInfo.cmake"
   )

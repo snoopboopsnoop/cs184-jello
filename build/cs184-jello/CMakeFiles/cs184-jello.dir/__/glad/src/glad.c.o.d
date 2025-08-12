@@ -1,5 +1,5 @@
 cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: \
-  /Users/isaiahtapia/cs184/cs184-jello/glad/src/glad.c \
+  /Users/crystal/Desktop/CS184/cs184-jello/glad/src/glad.c \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h \
@@ -84,7 +84,7 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/strings.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_strings.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/secure/_string.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../glad/include/glad/glad.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../glad/include/KHR/khrplatform.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../glad/include/glad/glad.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../glad/include/KHR/khrplatform.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/dlfcn.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stdbool.h

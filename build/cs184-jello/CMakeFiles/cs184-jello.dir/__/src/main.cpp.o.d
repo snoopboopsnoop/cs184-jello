@@ -1,7 +1,7 @@
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
-  /Users/isaiahtapia/cs184/cs184-jello/src/main.cpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../glad/include/glad/glad.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../glad/include/KHR/khrplatform.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../glad/include/glad/glad.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../glad/include/KHR/khrplatform.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__config \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__config_site \
@@ -32,12 +32,12 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_intmax_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_uintmax_t.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/GLFW/glfw3.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/GLFW/glfw3.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/stddef.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/__stddef_max_align_t.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/glm.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/_fixes.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/glm.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/_fixes.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cmath \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__assert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__verbose_abort \
@@ -220,10 +220,10 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_ptrcheck.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_dev_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_mode_t.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/setup.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/setup.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cassert \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/assert.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../simd/platform.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../simd/platform.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/climits \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/limits.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/limits.h \
@@ -236,245 +236,245 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/float.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/fwd.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/qualifier.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/vec2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec2.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/./compute_vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/vec3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec3.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/compute_vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/vec4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec4.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/setup.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat2x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat2x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat2x2.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../matrix.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat2x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat2x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat2x3.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat2x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat2x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat2x4.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat3x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat3x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat3x2.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat3x3.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat3x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat3x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat3x4.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat4x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat4x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat4x2.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat4x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat4x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat4x3.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x3_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/mat4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_mat4x4.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x4_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_matrix.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_geometric.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../exponential.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_vec1.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_exponential.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_vector_relational.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/_vectorize.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../common.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_common.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/compute_common.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x2_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/trigonometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_trigonometric.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/exponential.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/common.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/packing.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_packing.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_half.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_half.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/matrix.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/integer.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/func_integer.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/matrix_transform.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../vec2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../vec3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../vec4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/matrix_projection.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../gtc/constants.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/scalar_constants.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/scalar_constants.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/constants.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../trigonometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../matrix.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_projection.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/matrix_clip_space.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../ext/scalar_constants.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_clip_space.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/matrix_transform.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_transform.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/matrix_transform.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../trigonometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../matrix.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/type_ptr.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/quaternion.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/constants.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/matrix_transform.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/qualifier.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_relational.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../common.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_float.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_common.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../ext/quaternion_geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../exponential.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../ext/vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_geometric.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_common.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_float.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_quat.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_mat3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_mat4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_vec3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_vec4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../ext/vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../ext/quaternion_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_relational.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../gtc/constants.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../gtc/matrix_transform.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/type_quat.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../trigonometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/detail/../ext/quaternion_geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_float_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_double.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_double_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_geometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_trigonometric.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/scalar_constants.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_trigonometric.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_transform.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_transform.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_mat3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_mat4x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_vec3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_vec4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/quaternion.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../exponential.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/epsilon.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/setup.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/qualifier.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/epsilon.inl \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../vector_relational.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../common.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/vec1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_bool1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_bool1_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_float1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_float1_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_double1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_double1_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_int1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_int1_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_uint1.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_uint1_precision.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat2x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat2x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat2x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat3x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat3x3.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat3x4.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat4x2.hpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/../mat4x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/fwd.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/qualifier.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/vec2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec2.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/./compute_vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/vec3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec3.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/compute_vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/vec4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec4.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_bool4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_float4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_double4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/setup.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_int4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_uint4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat2x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat2x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat2x2.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../matrix.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat2x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat2x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat2x3.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat2x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat2x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat2x4.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat3x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat3x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat3x2.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat3x3.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat3x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat3x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat3x4.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double3x4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float3x4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat4x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat4x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat4x2.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat4x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat4x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat4x3.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x3_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/mat4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_mat4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_mat4x4.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double4x4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float4x4_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_matrix.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_geometric.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../exponential.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_vec1.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_exponential.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_vector_relational.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/_vectorize.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../common.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_common.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/compute_common.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_double2x2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_float2x2_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/trigonometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_trigonometric.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/exponential.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/common.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/packing.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_packing.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_half.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_half.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/matrix.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/integer.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/func_integer.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/matrix_transform.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../vec2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../vec3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../vec4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/matrix_projection.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../gtc/constants.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/scalar_constants.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/scalar_constants.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/constants.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../trigonometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../matrix.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_projection.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/matrix_clip_space.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../ext/scalar_constants.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_clip_space.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/matrix_transform.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/matrix_transform.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/matrix_transform.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../trigonometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../matrix.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/type_ptr.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/quaternion.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/constants.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/matrix_transform.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/qualifier.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_relational.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../common.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_float.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_common.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../ext/quaternion_geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../exponential.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../ext/vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_geometric.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_common.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_float.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_quat.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_mat3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_mat4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_vec3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../detail/type_vec4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../ext/vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../ext/quaternion_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_relational.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../gtc/constants.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../gtc/matrix_transform.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/type_quat.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../trigonometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/detail/../ext/quaternion_geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_float_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_double.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_double_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_geometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_trigonometric.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/scalar_constants.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_trigonometric.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/quaternion_transform.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/quaternion_transform.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_mat3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_mat4x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_vec3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/type_vec4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/quaternion.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../exponential.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/epsilon.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/setup.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../detail/qualifier.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/epsilon.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../vector_relational.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../common.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../gtc/vec1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_bool1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/./ext/../detail/type_vec1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_bool1_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_float1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_float1_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_double1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_double1_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_int1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_int1_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_uint1.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../ext/vector_uint1_precision.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat2x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat2x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat2x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat3x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat3x3.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat3x4.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat4x2.hpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/../mat4x3.hpp \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstring \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/_types/_ssize_t.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/strings.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../include/glm/gtc/type_ptr.inl \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../include/glm/gtc/type_ptr.inl \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/ios \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/ios.h \
@@ -1096,7 +1096,7 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/array \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/temp_value.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__split_buffer \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/shader.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/shader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/filesystem \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/copy_options.h \
@@ -1118,9 +1118,9 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/stb_image.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/camera.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/model.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/stb_image.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/camera.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/model.h \
   /opt/homebrew/include/assimp/Importer.hpp \
   /opt/homebrew/include/assimp/types.h \
   /opt/homebrew/include/assimp/defs.h \
@@ -1178,5 +1178,5 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /opt/homebrew/include/assimp/anim.h \
   /opt/homebrew/include/assimp/metadata.h \
   /opt/homebrew/include/assimp/postprocess.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/mesh.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/cage.h
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/mesh.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/cage.h

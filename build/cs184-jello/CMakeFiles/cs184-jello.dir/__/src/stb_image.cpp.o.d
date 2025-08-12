@@ -1,6 +1,6 @@
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: \
-  /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/stb_image.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/src/stb_image.cpp \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/stb_image.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdio.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__config \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__config_site \

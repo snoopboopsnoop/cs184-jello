@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/isaiahtapia/cs184/cs184-jello
+CMAKE_SOURCE_DIR = /Users/crystal/Desktop/CS184/cs184-jello
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/isaiahtapia/cs184/cs184-jello/cs184-jello
+CMAKE_BINARY_DIR = /Users/crystal/Desktop/CS184/cs184-jello/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -E cmake_progress_start /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/CMakeFiles /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello//CMakeFiles/progress.marks
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/CMakeFiles 0
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/crystal/Desktop/CS184/cs184-jello/build/CMakeFiles /Users/crystal/Desktop/CS184/cs184-jello/build/cs184-jello//CMakeFiles/progress.marks
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/crystal/Desktop/CS184/cs184-jello/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/clean
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,22 +103,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/preinstall
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/preinstall
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 cs184-jello/CMakeFiles/cs184-jello.dir/rule:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/CMakeFiles/cs184-jello.dir/rule
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cs184-jello/CMakeFiles/cs184-jello.dir/rule
 .PHONY : cs184-jello/CMakeFiles/cs184-jello.dir/rule
 
 # Convenience name for target.
@@ -127,7 +127,7 @@ cs184-jello: cs184-jello/CMakeFiles/cs184-jello.dir/rule
 
 # fast build rule for target.
 cs184-jello/fast:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/build
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/build
 .PHONY : cs184-jello/fast
 
 __/glad/src/glad.o: __/glad/src/glad.c.o
@@ -135,7 +135,7 @@ __/glad/src/glad.o: __/glad/src/glad.c.o
 
 # target to build an object file
 __/glad/src/glad.c.o:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o
 .PHONY : __/glad/src/glad.c.o
 
 __/glad/src/glad.i: __/glad/src/glad.c.i
@@ -143,7 +143,7 @@ __/glad/src/glad.i: __/glad/src/glad.c.i
 
 # target to preprocess a source file
 __/glad/src/glad.c.i:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.i
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.i
 .PHONY : __/glad/src/glad.c.i
 
 __/glad/src/glad.s: __/glad/src/glad.c.s
@@ -151,7 +151,7 @@ __/glad/src/glad.s: __/glad/src/glad.c.s
 
 # target to generate assembly for a file
 __/glad/src/glad.c.s:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.s
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.s
 .PHONY : __/glad/src/glad.c.s
 
 __/src/main.o: __/src/main.cpp.o
@@ -159,7 +159,7 @@ __/src/main.o: __/src/main.cpp.o
 
 # target to build an object file
 __/src/main.cpp.o:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o
 .PHONY : __/src/main.cpp.o
 
 __/src/main.i: __/src/main.cpp.i
@@ -167,7 +167,7 @@ __/src/main.i: __/src/main.cpp.i
 
 # target to preprocess a source file
 __/src/main.cpp.i:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.i
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.i
 .PHONY : __/src/main.cpp.i
 
 __/src/main.s: __/src/main.cpp.s
@@ -175,7 +175,7 @@ __/src/main.s: __/src/main.cpp.s
 
 # target to generate assembly for a file
 __/src/main.cpp.s:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.s
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.s
 .PHONY : __/src/main.cpp.s
 
 __/src/stb_image.o: __/src/stb_image.cpp.o
@@ -183,7 +183,7 @@ __/src/stb_image.o: __/src/stb_image.cpp.o
 
 # target to build an object file
 __/src/stb_image.cpp.o:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o
 .PHONY : __/src/stb_image.cpp.o
 
 __/src/stb_image.i: __/src/stb_image.cpp.i
@@ -191,7 +191,7 @@ __/src/stb_image.i: __/src/stb_image.cpp.i
 
 # target to preprocess a source file
 __/src/stb_image.cpp.i:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.i
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.i
 .PHONY : __/src/stb_image.cpp.i
 
 __/src/stb_image.s: __/src/stb_image.cpp.s
@@ -199,7 +199,7 @@ __/src/stb_image.s: __/src/stb_image.cpp.s
 
 # target to generate assembly for a file
 __/src/stb_image.cpp.s:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.s
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(MAKE) $(MAKESILENT) -f cs184-jello/CMakeFiles/cs184-jello.dir/build.make cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.s
 .PHONY : __/src/stb_image.cpp.s
 
 # Help Target
@@ -231,6 +231,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/crystal/Desktop/CS184/cs184-jello/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -42,7 +42,6 @@ vec3 lightPos(1.2f, 1.0f, 2.0f);
 // specular highlights
 vec3 specularColor(1.0f, 1.0f, 1.0f);
 
-
 // frustum
 const float fclip = 100.0f;
 const float nclip = 1.0f;
@@ -249,6 +248,8 @@ int main() {
 	//--------------------------------------------------------------
 
 	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
+	//Shader ourShader("./shaders/translucent.vert", "./shaders/translucent.frag");
+
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
 	Shader ptShader("./shaders/pt_shader.vertex", "./shaders/pt_shader.frag");
 	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
@@ -260,9 +261,12 @@ int main() {
 
 	// load models
 	// -----------
-	// these 2 lines for crystal to comment out when basic translucency not working
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
+
+	string platePath = "resources/objects/plate/plate.obj";
+	Model plateModel(platePath);
+
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
@@ -270,7 +274,7 @@ int main() {
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
-	
+
 	vector<Spring> springs;
 	springs.push_back(Spring(0, 1, 20, 6, 1));
 	
@@ -289,22 +293,30 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		// glClearColor(1.0f, 0.87f, 0.93f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//// wireframe mode (commented out bc translucency wants solid rendering)
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		vec3 lightColor;
-		lightColor.x = sin(glfwGetTime() * 2.0f);
-		lightColor.y = sin(glfwGetTime() * 0.7f);
-		lightColor.z = sin(glfwGetTime() * 1.3f);
 
-		vec3 diffuseColor = lightColor * vec3(0.5f);
-		vec3 ambientColor = diffuseColor * vec3(0.2f);
+		float t = 0.5f + 0.5f * sin(glfwGetTime() * 0.5f);
+		lightColor.x = t; // 0 to 1
+		lightColor.y = 0.0f; // no green
+		lightColor.z = 1.0f - t; // 1 to 0 blue to red
+
+		// lightColor.x = 1.0f;
+		// lightColor.y = 0.5f * (0.4f + 0.6f);
+		// lightColor.z = 0.5f * (0.4f + 0.6f);
+
+		vec3 diffuseColor = lightColor * vec3(0.8f);
+		vec3 ambientColor = diffuseColor * vec3(0.6f);
 
 		ourShader.use();
 		ourShader.setVec3("DiffuseColor", diffuseColor);
+		ourShader.setVec3("AmbientColor", ambientColor);
 		ourShader.setVec3("SpecularColor", specularColor);
 		ourShader.setVec3("lightPos", lightPos);
 		ourShader.setVec3("eyePos", cam.Position);
@@ -315,7 +327,7 @@ int main() {
 		ourShader.setInt("skinLUT", 0);
 		*/
 
-		ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		ourShader.setVec3("objectColor", 1.0f, 0.87f, 0.93f);
 		ourShader.setVec3("viewPos", cam.Position);
 
 		// Cube's spring forces should account for the resistance and point mass
@@ -338,11 +350,11 @@ int main() {
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
-		ourShader.setMat4("view", view);
+		mat4 projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, nclip, fclip);
 
-		mat4 projection;
-		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, nclip, fclip);
+		ourShader.setMat4("view", view);
 		ourShader.setMat4("projection", projection);
+
 
 		// render plane
 		planeShader.use();
@@ -367,17 +379,40 @@ int main() {
 
 		c.Draw(ptShader, lineShader);
 
-		// render model
-		ourShader.use();
-		ourModel.Draw(ourShader);
+		//// render PLATE model behind jello
+		//ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
+		//vec3 plateDiffuseColor = vec3(0.6f, 0.6f, 0.6f);
+		//vec3 plateAmbientColor = plateDiffuseColor * vec3(0.6f);
+		//ourShader.setVec3("DiffuseColor", plateDiffuseColor);
+		//ourShader.setVec3("AmbientColor", plateAmbientColor);
+
+		//glm::mat4 plateModelMatrix = glm::mat4(1.0f);
+		//plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, -0.6f,-0.5f));
+		//plateModelMatrix = glm::scale(plateModelMatrix, glm::vec3(2.5f, 1.5f, 2.5f));
+		//ourShader.setMat4("model", plateModelMatrix);
+
+		//// no translucency blending for plate
+		//glDisable(GL_BLEND);
+		//plateModel.Draw(ourShader);
+		//glEnable(GL_BLEND);
+
+		//// render JELLO model
+		//ourShader.setVec3("objectColor", 1.0f, 0.87f, 0.93f);
+		//diffuseColor = lightColor * vec3(0.6f);
+		//ambientColor = diffuseColor * vec3(0.8f);
+		//ourShader.setVec3("DiffuseColor", diffuseColor);
+		//ourShader.setVec3("AmbientColor", ambientColor);
+
+		//glm::mat4 model = glm::mat4(1.0f);
+		//model = glm::translate(model, glm::vec3(0.0f, -0.54f, 0.0f));
+		//model = glm::scale(model, glm::vec3(1.45f, 1.45f, 1.45f));
+		//ourShader.setMat4("model", model);
+
+		//ourModel.Draw(ourShader);
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
 	}
-
-	// de-allocate resources
-	glDeleteVertexArrays(1, &VAO);
-	glDeleteBuffers(1, &VBO);
 
 	// clean glfw resources
 	glfwTerminate();

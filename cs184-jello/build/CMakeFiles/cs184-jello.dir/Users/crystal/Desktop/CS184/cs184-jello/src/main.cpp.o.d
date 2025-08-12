@@ -1178,4 +1178,5 @@ CMakeFiles/cs184-jello.dir/Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp.
   /opt/homebrew/include/assimp/anim.h \
   /opt/homebrew/include/assimp/metadata.h \
   /opt/homebrew/include/assimp/postprocess.h \
-  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/mesh.h
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/mesh.h \
+  /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/../src/cage.h
