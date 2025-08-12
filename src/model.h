@@ -36,9 +36,12 @@ class Model {
         }
 
         void Draw(Shader& shader) {
+            //int sum = 0;
             for (unsigned int i = 0; i < meshes.size(); i++) {
                 meshes[i].Draw(shader);
+                //sum += meshes[i].vertices.size();
             }
+            //cout << "model has " << sum << " vertices" << endl;
         }
 
     private:
@@ -46,10 +49,14 @@ class Model {
         vector<Mesh> meshes;
         string directory;
         vector<Texture> textures_loaded;
+        Cage cage;
 
         void loadModel(string path) {
             Assimp::Importer importer;
-            const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+            const aiScene* scene = importer.ReadFile(path,
+                aiProcess_Triangulate |
+                aiProcess_FlipUVs |
+                aiProcess_GenBoundingBoxes);
 
             if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
                 cout << "ERROR::ASSIMP::" << importer.GetErrorString() << endl;
@@ -67,6 +74,10 @@ class Model {
             for (unsigned int i = 0; i < node->mNumChildren; i++) {
                 processNode(node->mChildren[i], scene);
             }
+        }
+
+        Cage processCage() {
+
         }
 
         Mesh processMesh(aiMesh* mesh, const aiScene* scene) {

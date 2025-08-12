@@ -30,6 +30,14 @@ struct PointMass {
     }
 };
 
+enum SpringType {
+	EDGE,
+	SHEAR,
+	SHEAR_BODY,
+	BEND,
+	SURFACE
+};
+
 struct Spring {
     // the indices of the two point masses attached
     unsigned int v0;
@@ -37,11 +45,13 @@ struct Spring {
 	float restLength;
 
     float k;
+	float kd;
 
-	Spring(unsigned int v0, unsigned int v1, float k, float rl) {
+	Spring(unsigned int v0, unsigned int v1, float k, float kd, float rl) {
 		this->v0 = v0;
 		this->v1 = v1;
 		this->k = k;
+		this->kd = kd;
 
 		// Set to some constant, its a cube so all would the same distance, how far are positions from one another typically
 		this->restLength = rl;
@@ -87,7 +97,7 @@ class Cage {
 			}
 		}
 
-		void springCorrectionForces() {
+		void springCorrectionForces(float deltaTime) {
 			for (auto &spring : springs) {
 				PointMass *pm_a = &pts[spring.v0];
 				PointMass *pm_b = &pts[spring.v1];
@@ -100,17 +110,23 @@ class Cage {
 
 				// Compute the force as the
 				// Spring damping coefficient times the difference of the magnitude of pa-pb and spring rest length
-				float force = spring.k * (m_ab - spring.restLength);
-
-				if (m_ab == 0) {
-					cout << "uh oh spring length is 0" << endl;
-				}
+				float force_elastic = spring.k * (m_ab - spring.restLength);
 				vec3 force_dir = normalize(ab);
-
-				vec3 f_a = -force * force_dir;
+				vec3 f_a = -force_elastic * force_dir;
 
 				pm_a->forces += f_a;
 				pm_b->forces -= f_a;
+
+				vec3 vA = (pm_a->Position - pm_a->previousPosition) / deltaTime;
+				vec3 vB = (pm_b->Position - pm_b->previousPosition) / deltaTime;
+
+				vec3 vDiff = vA - vB;
+
+				vec3 force_damping = -spring.kd * dot(vDiff, ab) / length(ab) * normalize(ab);
+				//cout << "spring force " << force << "N" << endl;
+
+				pm_a->forces += force_damping;
+				pm_b->forces -= force_damping;
 			}
 		}
 
@@ -125,7 +141,7 @@ class Cage {
 								+ (v_dt)
 								+ accel * deltaTime * deltaTime;
 
-				if (&point_mass == &pts[0]) {
+				/*if (&point_mass == &pts[1]) {
 					cout << "force: (" << point_mass.forces.x << ", "
 						<< point_mass.forces.y << ", "
 						<< point_mass.forces.z << ") | ";
@@ -139,7 +155,7 @@ class Cage {
 						", " << nextPos.y + pos.y <<
 						", " << nextPos.z + pos.z << ") | ";
 					cout << "v dt = (" << v_dt.x << ", " << v_dt.y << ", " << v_dt.z << ")" << endl;
-				}
+				}*/
 
 				point_mass.previousPosition = point_mass.Position;
 				point_mass.Position = nextPos;
@@ -157,10 +173,10 @@ class Cage {
 				const float distance = glm::distance(pm_a->Position, pm_b->Position);
 				// cout<<distance<<"\n";
 				vec3 delta = pm_b->Position - pm_a->Position;
-				vec3 ab_norm = normalize(delta);
+				vec3 ab_norm(0.0f, 1.0f, 0.0f);
 
 				if (distance < minDist) {
-					float diff = (minDist - minDist);
+					float diff = (minDist - distance);
 					pm_a->Position -= 0.5f * diff * ab_norm;
 					pm_b->Position += 0.5f * diff * ab_norm;
 				}
@@ -284,85 +300,105 @@ class Cube : public Cage {
 						bool isBottomX = (i == 0);
 						bool isBottomY = (j == 0);
 
-						// connect to top
-						float k_val = 150;
-						float rl_edge = 1.0f / nodesPerEdge;
+						bool bendX = (i + 2 < nodesPerEdge);
+						bool bendY = (j + 2 < nodesPerEdge);
+						bool bendZ = (k + 2 < nodesPerEdge);
+
+						float k_val = 500;
+						float kd = 6;
+						float rl_edge = (float) length / (nodesPerEdge - 1);
 						float rl_shear = sqrt(2 * rl_edge * rl_edge);
 						float rl_body = sqrt(rl_shear * rl_shear + rl_edge * rl_edge);
+
+						//cout << "edge, shear, body: " << rl_edge << " | " << rl_shear << " | " << rl_body << endl;
 
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
 						// connect z-axis edge
 						if (!isTopZ) {
 							int upIdx = currIdx + 1;
-							springs.push_back(Spring(currIdx, upIdx, k_val, rl_edge));
+							springs.push_back(Spring(currIdx, upIdx, k_val, kd, rl_edge));
 						}
 						// connect x-axis edge
 						if (!isTopX) {
 							int rightIdx = currIdx + (nodesPerEdge * nodesPerEdge);
-							springs.push_back(Spring(currIdx, rightIdx, k_val, rl_edge));
+							springs.push_back(Spring(currIdx, rightIdx, k_val, kd, rl_edge));
 						}
 						// connect y-axis edge
 						if (!isTopY) {
 							int forIdx = currIdx + nodesPerEdge;
-							springs.push_back(Spring(currIdx, forIdx, k_val, rl_edge));
+							springs.push_back(Spring(currIdx, forIdx, k_val, kd, rl_edge));
 						}
 
 						// connect to (x + 1, z + 1) | across x-z face
 						if (!isTopZ && !isTopX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_shear));
 						}
 						// connect to (y + 1, z + 1) | across y-z face
 						if (!isTopZ && !isTopY) {
 							int crossIdx = currIdx + 1 + nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_shear));
 						}
 						// connect to (x + 1, y + 1) | across x-y face
 						if (!isTopX && !isTopY) {
 							int crossIdx = currIdx + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_shear));
 						}
 
 						// connect to (y + 1, z - 1) | across y-z face down
 						if (!isBottomZ && !isTopY) {
 							int crossIdx = currIdx - 1 + nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_shear));
 						}
 
 						// connect to (x + 1, z - 1) | across x-z face down
 						if (!isBottomZ && !isTopX) {
 							int crossIdx = currIdx - 1 + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_shear));
 						}
 						
 						// connect to (x + 1, y - 1) | across x-y face down
 						if (!isTopX && !isBottomY) {
 							int crossIdx = currIdx - nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_shear));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_shear));
 						}
 
 						// connect to (x + 1, y + 1, z + 1) | across body
 						if (!isTopZ && !isTopY && !isTopX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_body));
 						}
 
 						// connect to (x + 1, y + 1, z - 1) | across body down
 						if (!isBottomZ && !isTopY && !isTopX) {
 							int crossIdx = currIdx - 1 + nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_body));
 						}
 
 						// connect to (x + 1, y - 1, z + 1) | across body down
 						if (!isTopZ && !isBottomY && !isTopX) {
 							int crossIdx = currIdx + 1 - nodesPerEdge + nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_body));
 						}
 
 						// connect to (x - 1, y + 1, z + 1) | across body down
 						if (!isTopZ && !isTopY && !isBottomX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge - nodesPerEdge * nodesPerEdge;
-							springs.push_back(Spring(currIdx, crossIdx, 1, rl_body));
+							springs.push_back(Spring(currIdx, crossIdx, k_val, kd, rl_body));
+						}
+
+						// bend
+						if (bendX) {
+							int bendIdx = currIdx + 2 * (nodesPerEdge * nodesPerEdge);
+							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_body));
+						}
+						if (bendY) {
+							int bendIdx = currIdx + 2 * (nodesPerEdge);
+							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_body));
+						}
+						if (bendZ) {
+							int bendIdx = currIdx + 2;
+							springs.push_back(Spring(currIdx, bendIdx, k_val, kd, rl_body));
 						}
 					}
 				}

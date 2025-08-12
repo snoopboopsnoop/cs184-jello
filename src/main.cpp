@@ -265,18 +265,18 @@ int main() {
 	Model ourModel(modelPath);
 
 	// load some point masses
-	/*vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(1, 1, start);*/
-	vector<PointMass> pts;
+	vec3 start(0.0f, 5.0f, 0.0f);
+	Cube c(3, 3, start);
+	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
 	
 	vector<Spring> springs;
-	springs.push_back(Spring(0, 1, 20.0f, 1));
+	springs.push_back(Spring(0, 1, 20, 6, 1));
 	
 	vec3 pos(0.0f, 5.0f, 0.0f);
 
-	Cage c(pts, springs, pos);
+	Cage c(pts, springs, pos);*/
 
 	// render loop
 	lastFrame = glfwGetTime();
@@ -327,9 +327,11 @@ int main() {
 		if (tAccum >= dt) {
 			// Verlet
 			c.applyForces(vec3(0.0f, -9.81f, 0.0f));
-			c.verletStep(dt, 0.0f);
-			c.springConstrain();
+			c.springCorrectionForces(dt);
+			c.verletStep(dt, 0.7f);
+			
 			c.satisfyConstraints(0.0f);
+			c.springConstrain();
 			c.refreshMesh();
 			tAccum = 0;
 		}
@@ -365,9 +367,9 @@ int main() {
 
 		c.Draw(ptShader, lineShader);
 
-		//// render model
-		//ourShader.use();
-		//ourModel.Draw(ourShader);
+		// render model
+		ourShader.use();
+		ourModel.Draw(ourShader);
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
