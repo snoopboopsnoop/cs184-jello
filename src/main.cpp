@@ -38,6 +38,10 @@ float lastFrame = 0.0f;
 // light
 vec3 lightPos(1.2f, 1.0f, 2.0f);
 
+// specular highlights
+vec3 specularColor(1.0f, 1.0f, 1.0f);
+
+
 int main() {
 	// glfw initialization & configuration
 	glfwInit();
@@ -71,6 +75,13 @@ int main() {
 	glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
 	glEnable(GL_DEPTH_TEST);
+
+	// enable blending for translucency
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// disabling face culling allows translucency from all angles
+	glDisable(GL_CULL_FACE);
 
 	//--------------------------------------------------------------
 
@@ -191,13 +202,14 @@ int main() {
 	unsigned int specularMap = loadTexture("resources/objects/jello/jello_texture.jpg");
 
 	//--------------------------------------------------------------
-	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
+	Shader ourShader("./shaders/translucent.vert", "./shaders/translucent.frag");
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
 
 	//--------------------------------------------------------------
 
 	// load models
 	// -----------
+	// these 2 lines for crystal to comment out when basic translucency not working
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
 
@@ -211,10 +223,11 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+		glClearColor(0.89f, 1.0f, 0.96f, 0.5f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+		//// wireframe mode (commented out bc translucency wants solid rendering)
+		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		vec3 lightColor;
 		lightColor.x = sin(glfwGetTime() * 2.0f);
@@ -225,6 +238,18 @@ int main() {
 		vec3 ambientColor = diffuseColor * vec3(0.2f);
 
 		ourShader.use();
+		ourShader.setVec3("DiffuseColor", diffuseColor);
+		ourShader.setVec3("SpecularColor", specularColor);
+		ourShader.setVec3("lightPos", lightPos);
+		ourShader.setVec3("eyePos", cam.Position);
+
+		/* no LUT texture code needed, we do basic translucency
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, skinLUTTextureID);
+		ourShader.setInt("skinLUT", 0);
+		*/
+
+/*
 		ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 		ourShader.setVec3("viewPos", cam.Position);
 
@@ -236,7 +261,7 @@ int main() {
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, specularMap);
-
+*/
 		//// directional light
 		//ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
 		//ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
@@ -299,9 +324,9 @@ int main() {
 		//glBindVertexArray(VAO);
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		for (unsigned int i = 0; i < 10; i++)
+		for (unsigned int i = 0; i < 3; i++)
 		{
-		glm::mat4 model = glm::mat4(1.0f);
+			glm::mat4 model = glm::mat4(1.0f);
 			model = translate(model, cubePositions[i]);
 			float angle = 20.0f * i;
 			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
@@ -335,6 +360,10 @@ int main() {
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
 	}
+
+	// de-allocate resources
+	glDeleteVertexArrays(1, &VAO);
+	glDeleteBuffers(1, &VBO);
 
 	// clean glfw resources
 	glfwTerminate();
