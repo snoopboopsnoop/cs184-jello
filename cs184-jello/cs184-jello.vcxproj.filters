@@ -27,13 +27,13 @@
     <ClInclude Include="..\src\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\physobj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\cage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -51,6 +51,24 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\src\shaders\shader.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\pt_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\pt_shader.vertex">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\line_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\line_shader.vertex">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\plane_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\src\shaders\plane_shader.vertex">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

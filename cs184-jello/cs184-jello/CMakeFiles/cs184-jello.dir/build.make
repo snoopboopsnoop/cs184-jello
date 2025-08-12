@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/crystal/Desktop/CS184/cs184-jello
+CMAKE_SOURCE_DIR = /Users/isaiahtapia/cs184/cs184-jello
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello
+CMAKE_BINARY_DIR = /Users/isaiahtapia/cs184/cs184-jello/cs184-jello
 
 # Include any dependencies generated for this target.
 include cs184-jello/CMakeFiles/cs184-jello.dir/depend.make
@@ -73,46 +73,46 @@ cs184-jello/CMakeFiles/cs184-jello.dir/codegen:
 .PHONY : cs184-jello/CMakeFiles/cs184-jello.dir/codegen
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: cs184-jello/CMakeFiles/cs184-jello.dir/flags.make
-cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: /Users/crystal/Desktop/CS184/cs184-jello/glad/src/glad.c
+cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: /Users/isaiahtapia/cs184/cs184-jello/glad/src/glad.c
 cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o: cs184-jello/CMakeFiles/cs184-jello.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o -MF CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o.d -o CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o -c /Users/crystal/Desktop/CS184/cs184-jello/glad/src/glad.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/isaiahtapia/cs184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o"
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o -MF CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o.d -o CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o -c /Users/isaiahtapia/cs184/cs184-jello/glad/src/glad.c
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.i"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/crystal/Desktop/CS184/cs184-jello/glad/src/glad.c > CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.i
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/isaiahtapia/cs184/cs184-jello/glad/src/glad.c > CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.i
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.s"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/crystal/Desktop/CS184/cs184-jello/glad/src/glad.c -o CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.s
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/isaiahtapia/cs184/cs184-jello/glad/src/glad.c -o CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.s
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: cs184-jello/CMakeFiles/cs184-jello.dir/flags.make
-cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp
+cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/isaiahtapia/cs184/cs184-jello/src/main.cpp
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: cs184-jello/CMakeFiles/cs184-jello.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o -MF CMakeFiles/cs184-jello.dir/__/src/main.cpp.o.d -o CMakeFiles/cs184-jello.dir/__/src/main.cpp.o -c /Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/isaiahtapia/cs184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o"
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o -MF CMakeFiles/cs184-jello.dir/__/src/main.cpp.o.d -o CMakeFiles/cs184-jello.dir/__/src/main.cpp.o -c /Users/isaiahtapia/cs184/cs184-jello/src/main.cpp
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cs184-jello.dir/__/src/main.cpp.i"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp > CMakeFiles/cs184-jello.dir/__/src/main.cpp.i
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/isaiahtapia/cs184/cs184-jello/src/main.cpp > CMakeFiles/cs184-jello.dir/__/src/main.cpp.i
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cs184-jello.dir/__/src/main.cpp.s"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp -o CMakeFiles/cs184-jello.dir/__/src/main.cpp.s
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/isaiahtapia/cs184/cs184-jello/src/main.cpp -o CMakeFiles/cs184-jello.dir/__/src/main.cpp.s
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: cs184-jello/CMakeFiles/cs184-jello.dir/flags.make
-cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/crystal/Desktop/CS184/cs184-jello/src/stb_image.cpp
+cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: cs184-jello/CMakeFiles/cs184-jello.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o -MF CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o.d -o CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o -c /Users/crystal/Desktop/CS184/cs184-jello/src/stb_image.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/isaiahtapia/cs184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o"
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o -MF CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o.d -o CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o -c /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.i"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/crystal/Desktop/CS184/cs184-jello/src/stb_image.cpp > CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.i
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp > CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.i
 
 cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.s"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/crystal/Desktop/CS184/cs184-jello/src/stb_image.cpp -o CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.s
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.cpp -o CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.s
 
 # Object files for target cs184-jello
 cs184__jello_OBJECTS = \
@@ -130,18 +130,18 @@ cs184-jello/cs184-jello: cs184-jello/CMakeFiles/cs184-jello.dir/build.make
 cs184-jello/cs184-jello: /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 cs184-jello/cs184-jello: /opt/homebrew/lib/libglfw.3.4.dylib
 cs184-jello/cs184-jello: cs184-jello/CMakeFiles/cs184-jello.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable cs184-jello"
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cs184-jello.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/isaiahtapia/cs184/cs184-jello/cs184-jello/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable cs184-jello"
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cs184-jello.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 cs184-jello/CMakeFiles/cs184-jello.dir/build: cs184-jello/cs184-jello
 .PHONY : cs184-jello/CMakeFiles/cs184-jello.dir/build
 
 cs184-jello/CMakeFiles/cs184-jello.dir/clean:
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -P CMakeFiles/cs184-jello.dir/cmake_clean.cmake
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -P CMakeFiles/cs184-jello.dir/cmake_clean.cmake
 .PHONY : cs184-jello/CMakeFiles/cs184-jello.dir/clean
 
 cs184-jello/CMakeFiles/cs184-jello.dir/depend:
-	cd /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/crystal/Desktop/CS184/cs184-jello /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello /Users/crystal/Desktop/CS184/cs184-jello/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/isaiahtapia/cs184/cs184-jello/cs184-jello && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/isaiahtapia/cs184/cs184-jello /Users/isaiahtapia/cs184/cs184-jello/cs184-jello /Users/isaiahtapia/cs184/cs184-jello/cs184-jello /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : cs184-jello/CMakeFiles/cs184-jello.dir/depend
 

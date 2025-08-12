@@ -19,6 +19,7 @@
 #include "stb_image.h"
 #include "camera.h"
 #include "mesh.h"
+#include "cage.h"
 
 using namespace std;
 using namespace glm;
@@ -27,10 +28,13 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
 
 class Model {
     public:
+        Model();
+
         Model(string path)
         {
             loadModel(path);
         }
+
         void Draw(Shader& shader) {
             for (unsigned int i = 0; i < meshes.size(); i++) {
                 meshes[i].Draw(shader);

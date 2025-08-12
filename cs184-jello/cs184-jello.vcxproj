@@ -19,17 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\cage.h" />
     <ClInclude Include="..\src\camera.h" />
     <ClInclude Include="..\src\mesh.h" />
     <ClInclude Include="..\src\model.h" />
-    <ClInclude Include="..\src\physobj.h" />
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\shaders\lightSourceShader.fs" />
+    <None Include="..\src\shaders\line_shader.frag" />
+    <None Include="..\src\shaders\line_shader.vertex" />
     <None Include="..\src\shaders\model_shader.frag" />
     <None Include="..\src\shaders\model_shader.vertex" />
+    <None Include="..\src\shaders\plane_shader.frag" />
+    <None Include="..\src\shaders\plane_shader.vertex" />
+    <None Include="..\src\shaders\pt_shader.frag" />
+    <None Include="..\src\shaders\pt_shader.vertex" />
     <None Include="..\src\shaders\shader.fs" />
     <None Include="..\src\shaders\shader.vs" />
   </ItemGroup>

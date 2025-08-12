@@ -12,6 +12,7 @@
 #include "stb_image.h"
 #include "camera.h"
 #include "model.h"
+#include "cage.h"
 
 using namespace std;
 using namespace glm;
@@ -22,14 +23,14 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 unsigned int loadTexture(char const* path);
 
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1000;
+const unsigned int SCR_HEIGHT = 800;
 
 float lastX = SCR_WIDTH / 2, lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 
 // camera
-Camera cam(vec3(0.0f, 0.0f, 3.0f));
+Camera cam(vec3(0.0f, 3.0f, 10.0f));
 
 // time
 float deltaTime = 0.0f;
@@ -42,6 +43,14 @@ vec3 lightPos(1.2f, 1.0f, 2.0f);
 vec3 specularColor(1.0f, 1.0f, 1.0f);
 
 
+// frustum
+const float fclip = 100.0f;
+const float nclip = 1.0f;
+
+// physics
+const float dt = 1.0f / 60;
+float tAccum = 0.0f;
+
 int main() {
 	// glfw initialization & configuration
 	glfwInit();
@@ -50,9 +59,13 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
+#ifdef __APPLE__
+	glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
+#endif
 
 	// create window
 	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+
 	if (window == NULL) {
 		cout << "Failed to create GLFW window" << endl;
 		glfwTerminate();
@@ -158,6 +171,21 @@ int main() {
 	glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
+
+
+	// floor plane
+	float plane[] = {
+		fclip, 0, fclip,
+		fclip, 0, -fclip,
+		-fclip, 0, fclip,
+		-fclip, 0, -fclip
+	};
+
+	unsigned int planeIdx[] = {
+		0, 1, 2,
+		1, 2, 3
+	};
+
 	//--------------------------------------------------------------
 
 	// generate buffers
@@ -193,7 +221,24 @@ int main() {
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
-	
+
+	// floor vao
+	unsigned int floorVAO, floorVBO, floorEBO;
+	glGenBuffers(1, &floorVBO);
+	glGenVertexArrays(1, &floorVAO);
+	glGenBuffers(1, &floorEBO);
+
+	glBindVertexArray(floorVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, floorVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(plane), plane, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, floorEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(planeIdx), planeIdx, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
+
 	//--------------------------------------------------------------
 
 	stbi_set_flip_vertically_on_load(true);
@@ -202,10 +247,17 @@ int main() {
 	unsigned int specularMap = loadTexture("resources/objects/jello/jello_texture.jpg");
 
 	//--------------------------------------------------------------
+
+	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
 	Shader ourShader("./shaders/translucent.vert", "./shaders/translucent.frag");
 	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
+	Shader ptShader("./shaders/pt_shader.vertex", "./shaders/pt_shader.frag");
+	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
+	Shader planeShader("./shaders/plane_shader.vertex", "./shaders/plane_shader.frag");
 
 	//--------------------------------------------------------------
+
+	cam.Pitch = -20.0f;
 
 	// load models
 	// -----------
@@ -213,7 +265,22 @@ int main() {
 	string modelPath = "resources/objects/jello/jello.obj";
 	Model ourModel(modelPath);
 
+	// load some point masses
+	vec3 start(0.0f, 5.0f, 0.0f);
+	Cube c(1, 1, start);
+	/*vector<PointMass> pts;
+	pts.push_back(PointMass(vec3(0.0f, 0.0f, -0.5f), 1));
+	pts.push_back(PointMass(vec3(0.0f, 0.0f, 0.5f), 1));
+
+	vector<Spring> springs;
+	springs.push_back(Spring(0, 1, 1.0f, 1));
+
+	vec3 pos(0.0f, 10.0f, 0.0f);
+
+	Cage c(pts, springs, pos);*/
+
 	// render loop
+	lastFrame = glfwGetTime();
 	while (!glfwWindowShouldClose(window)) {
 		// calculate frame time
 		float currentFrame = glfwGetTime();
@@ -223,7 +290,7 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(0.89f, 1.0f, 0.96f, 0.5f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//// wireframe mode (commented out bc translucency wants solid rendering)
@@ -253,108 +320,56 @@ int main() {
 		ourShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
 		ourShader.setVec3("viewPos", cam.Position);
 
-		ourShader.setInt("material.diffuse", 0);
-		ourShader.setInt("material.specular", 1);
-		ourShader.setFloat("material.shininess", 32.0f);
+		// Cube's spring forces should account for the resistance and point mass
+		// forces should be mutated because of that
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, specularMap);
-*/
-		//// directional light
-		//ourShader.setVec3("dirLight.direction", -0.2f, -1.0f, -0.3f);
-		//ourShader.setVec3("dirLight.ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("dirLight.diffuse", 0.4f, 0.4f, 0.4f);
-		//ourShader.setVec3("dirLight.specular", 0.5f, 0.5f, 0.5f);
-		//// point light 1
-		//ourShader.setVec3("pointLights[0].position", pointLightPositions[0]);
-		//ourShader.setVec3("pointLights[0].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[0].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[0].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[0].constant", 1.0f);
-		//ourShader.setFloat("pointLights[0].linear", 0.09f);
-		//ourShader.setFloat("pointLights[0].quadratic", 0.032f);
-		//// point light 2
-		//ourShader.setVec3("pointLights[1].position", pointLightPositions[1]);
-		//ourShader.setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[1].constant", 1.0f);
-		//ourShader.setFloat("pointLights[1].linear", 0.09f);
-		//ourShader.setFloat("pointLights[1].quadratic", 0.032f);
-		//// point light 3
-		//ourShader.setVec3("pointLights[2].position", pointLightPositions[2]);
-		//ourShader.setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[2].constant", 1.0f);
-		//ourShader.setFloat("pointLights[2].linear", 0.09f);
-		//ourShader.setFloat("pointLights[2].quadratic", 0.032f);
-		//// point light 4
-		//ourShader.setVec3("pointLights[3].position", pointLightPositions[3]);
-		//ourShader.setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-		//ourShader.setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-		//ourShader.setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("pointLights[3].constant", 1.0f);
-		//ourShader.setFloat("pointLights[3].linear", 0.09f);
-		//ourShader.setFloat("pointLights[3].quadratic", 0.032f);
-		//// spotLight
-		//ourShader.setVec3("spotLight.position", cam.Position);
-		//ourShader.setVec3("spotLight.direction", cam.Front);
-		//ourShader.setVec3("spotLight.ambient", 0.0f, 0.0f, 0.0f);
-		//ourShader.setVec3("spotLight.diffuse", 1.0f, 1.0f, 1.0f);
-		//ourShader.setVec3("spotLight.specular", 1.0f, 1.0f, 1.0f);
-		//ourShader.setFloat("spotLight.constant", 1.0f);
-		//ourShader.setFloat("spotLight.linear", 0.09f);
-		//ourShader.setFloat("spotLight.quadratic", 0.032f);
-		//ourShader.setFloat("spotLight.cutOff", glm::cos(glm::radians(12.5f)));
-		//ourShader.setFloat("spotLight.outerCutOff", glm::cos(glm::radians(15.0f)));
+		// physics
+		tAccum += deltaTime;
+		//cout << "dt: " << deltaTime << " | accum: " << tAccum << endl;
+		if (tAccum >= dt) {
+			// Verlet
+			c.applyForces(vec3(0.0f, -9.81f, 0.0f));
+			c.springCorrectionForces();
+			c.verletStep(dt, .20);
+			c.springConstrain();
+			c.satisfyConstraints(0.0f);
+			c.refreshMesh();
+			tAccum = 0;
+		}
 
 		// camera
 		mat4 view = cam.GetViewMatrix();
 		ourShader.setMat4("view", view);
 
 		mat4 projection;
-		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+		projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, nclip, fclip);
 		ourShader.setMat4("projection", projection);
 
+		// render plane
+		planeShader.use();
+		planeShader.setMat4("view", view);
+		planeShader.setMat4("projection", projection);
+		planeShader.setMat4("model", mat4(1.0f));
+
+		glBindVertexArray(floorVAO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		// render cube
+		ptShader.use();
+		ptShader.setMat4("view", view);
+		ptShader.setMat4("projection", projection);
+		ptShader.setMat4("model", mat4(1.0f));
+
+		lineShader.use();
+		lineShader.setMat4("view", view);
+		lineShader.setMat4("projection", projection);
+		lineShader.setMat4("model", mat4(1.0f));
+
+		c.Draw(ptShader, lineShader);
+
+		//// render model
 		//ourShader.use();
-
-		//glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
-
-		for (unsigned int i = 0; i < 3; i++)
-		{
-			glm::mat4 model = glm::mat4(1.0f);
-			model = translate(model, cubePositions[i]);
-			float angle = 20.0f * i;
-			model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-			ourShader.setMat4("model", model);
-
-			glBindVertexArray(VAO);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}
-
-		/*lightSourceShader.use();
-		lightSourceShader.setMat4("view", view);
-		lightSourceShader.setMat4("projection", projection);
-		for (unsigned int i = 0; i < 4; i++) {
-			mat4 model = mat4(1.0f);
-			model = translate(model, pointLightPositions[i]);
-			model = scale(model, vec3(0.2f));
-			lightSourceShader.setMat4("model", model);
-
-			glBindVertexArray(lightVAO);
-			glDrawArrays(GL_TRIANGLES, 0, 36);
-		}*/
-
-		//ourShader.use();
-		//// render the loaded model
-		//glm::mat4 model = glm::mat4(1.0f);
-		//model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-		//model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
-		//ourShader.setMat4("model", model);
 		//ourModel.Draw(ourShader);
 
 		glfwSwapBuffers(window); // swap color buffer
