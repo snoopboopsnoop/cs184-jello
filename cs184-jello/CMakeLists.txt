@@ -16,7 +16,7 @@ set(Header_Files
         "../src/model.h"
         "../src/shader.h"
         "../src/stb_image.h"
-        "../src/physobj.h"
+        #"../src/physobj.h"
         "../glad/include/glad/glad.h"        # Fixed: removed /src/
         "../glad/include/KHR/khrplatform.h" # Fixed: removed /src/
 )

@@ -7,6 +7,7 @@ in vec3 vHalfVec;
 
 uniform vec3 DiffuseColor;
 uniform vec3 SpecularColor;
+uniform vec3 AmbientColor;
 
 out vec4 FragColor;
 
@@ -22,8 +23,8 @@ void main()
     // simple specular lighting
     float spec = pow(max(dot(normal, halfVec), 0.0), 32.0);
 
-    // combine diffuse and specular
-    vec3 color = DiffuseColor * diff + SpecularColor * spec;
+    // combine ambient, diffuse, and specular
+    vec3 color = AmbientColor + DiffuseColor * diff + SpecularColor * spec;
 
     // angle-based translucency (stronger when backlit)
     float backLit = max(0.0, dot(-normal, lightDir));

@@ -18,11 +18,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e832999-e4d4-4d41-bf8b-d87163256510" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/resources/objects/backpack/backpack.obj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/resources/objects/jello/jello.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cage.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/cage.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/build/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/CMakeCache.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/4.1.0/CMakeDetermineCompilerABI_C.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/4.1.0/CMakeDetermineCompilerABI_C.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/4.1.0/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/4.1.0/CMakeDetermineCompilerABI_CXX.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/CMakeConfigureLog.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/CMakeConfigureLog.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/cs184-jello.dir/Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/cs184-jello.dir/Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/cs184-jello.dir/Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp.o.d" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/cs184-jello.dir/Users/crystal/Desktop/CS184/cs184-jello/src/main.cpp.o.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/cs184-jello.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/CMakeFiles/cs184-jello.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/build/cs184-jello" beforeDir="false" afterPath="$PROJECT_DIR$/cs184-jello/build/cs184-jello" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/CMakeDirectoryInformation.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/DependInfo.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/__/glad/src/glad.c.o.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/build.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/cmake_clean.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/compiler_depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/compiler_depend.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/depend.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/flags.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/link.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/cs184-jello.dir/progress.make" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/CMakeFiles/progress.marks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/cmake_install.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cs184-jello/cs184-jello/cs184-jello" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shaders/translucent.frag" beforeDir="false" afterPath="$PROJECT_DIR$/src/shaders/translucent.frag" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +88,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "Merging main",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/crystal/Desktop/CS184/cs184-jello/src/shaders",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -86,7 +117,7 @@
       <updated>1754898786128</updated>
       <workItem from="1754898787438" duration="4236000" />
       <workItem from="1754903046176" duration="5468000" />
-      <workItem from="1754912267387" duration="13096000" />
+      <workItem from="1754912267387" duration="18137000" />
     </task>
     <servers />
   </component>
