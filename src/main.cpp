@@ -50,6 +50,8 @@ const float nclip = 1.0f;
 const float dt = 1.0f / 60;
 float tAccum = 0.0f;
 
+
+
 int main() {
 	// glfw initialization & configuration
 	glfwInit();
@@ -270,7 +272,7 @@ int main() {
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(3, 3, start);
+	Cube c(2, 1, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
@@ -338,10 +340,11 @@ int main() {
 		//cout << "dt: " << deltaTime << " | accum: " << tAccum << endl;
 		if (tAccum >= dt) {
 			// Verlet
-			c.applyForces(vec3(0.0f, -9.81f, 0.0f));
+			// c.applyForces(vec3(0.0f, -9.81f, 0.0f));//(window);
+			// c.applyForces(vec3(0.0f, -9.81f, 0.0f));
+			c.applyWorldAndUserForces(window, deltaTime);
 			c.springCorrectionForces(dt);
 			c.verletStep(dt, 0.7f);
-			
 			c.satisfyConstraints(0.0f);
 			c.springConstrain();
 			c.refreshMesh();

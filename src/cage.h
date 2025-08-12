@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include <random>
 
 using namespace std;
 using namespace glm;
@@ -78,10 +79,31 @@ class Cage {
 		}
 
 
+	void applyWorldAndUserForces(GLFWwindow* window, float dt) {
+			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+				applyForces(vec3(0, -9.81f, -3.0f));
+			} else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+				applyForces(vec3(0, -9.81, 3.0f));
+			} else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+				applyForces(vec3(-3.0f, -9.81f, 0.0f));
+
+			} else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+				applyForces(vec3(3.0f, -9.81f, 0.0f));
+
+			} else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+				applyForces(vec3(0.0f, 9.81f, 0.0f));
+
+			} else {
+				applyForces(vec3(0.0f, -9.81f, 0.0f));
+			}
+		}
+
+
 		void satisfyConstraints(float floorY) {
 			for (auto &p : pts) {
 				if (p.Position.y + pos.y < floorY) {
 					p.Position.y = floorY - pos.y;
+					p.forces = vec3(0, -9.8f, 0.0);
 				}
 			}
 		}
@@ -131,7 +153,6 @@ class Cage {
 		}
 
 		void verletStep(float deltaTime, float damping) {
-			float deltaTime2 = deltaTime * deltaTime;
 			for (auto &point_mass : pts) {
 				vec3 accel = point_mass.forces / point_mass.mass;
 
