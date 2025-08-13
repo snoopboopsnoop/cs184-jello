@@ -334,8 +334,7 @@ int main() {
 				jello.cage.springConstrain();
 				jello.cage.refreshMesh();*/
 
-				c.applyWorldAndUserForces(window, deltaTime);
-				c.springCorrectionForces(dt);
+				c.updatePhysics(window, dt);
 				c.verletStep(dt, 0.7f);
 				c.satisfyConstraints(0.0f);
 				c.springConstrain();
@@ -348,7 +347,7 @@ int main() {
 		}
 
 		// camera
-		mat4 view = cam.GetViewMatrix();
+		mat4 view = cam.GetViewMatrix(); 
 		mat4 projection = perspective(radians(cam.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, nclip, fclip);
 
 		ourShader.use();

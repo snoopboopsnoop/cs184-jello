@@ -20,6 +20,8 @@ struct PointMass {
     vec3 Position;
 	vec3 previousPosition;
 	vec3 forces;
+	vec3 previousForces;
+
     float mass;
 
     PointMass(vec3 pos, float m) {
@@ -27,6 +29,7 @@ struct PointMass {
     	previousPosition = pos;
 
     	forces = vec3(0, 0, 0);
+    	previousForces = vec3(0, 0, 0);
         mass = m;
     }
 };
@@ -113,23 +116,63 @@ class Cage {
 			setupMesh();
 		}
 
+	void updatePhysics(GLFWwindow* window, float dt) {
+		applyForces(vec3(0.0f, -9.81f, 0.0f));
+		applyUserInput(window, dt);
+		springCorrectionForces(dt);
+	}
 
-	void applyWorldAndUserForces(GLFWwindow* window, float dt) {
+	void applyUserInput(GLFWwindow* window, float dt) {
+			vec3 inputForce = vec3(0.0f);
+			float forceStrength = 19.81f; // Adjust this value
+
+			// Check inputs and accumulate forces
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
-				applyForces(vec3(0, -9.81f, -3.0f));
-			} else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-				applyForces(vec3(0, -9.81, 3.0f));
-			} else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
-				applyForces(vec3(-3.0f, -9.81f, 0.0f));
+				inputForce.z -= forceStrength;
+			}
+			if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+				inputForce.z += forceStrength;
+			}
+			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+				inputForce.x -= forceStrength;
+			}
+			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+				inputForce.x += forceStrength;
+			}
+			if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+				inputForce.y += 9.81f  * 3;
+			}
 
-			} else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
-				applyForces(vec3(3.0f, -9.81f, 0.0f));
+			float friction = 15.0f;
+			auto start = pts.begin();
+			while (start != pts.end()  - (pts.size() / 2)) {
+				PointMass &pointMass = *start;
+				vec3 velocity = (pointMass.Position - pointMass.previousPosition)/dt;
+				auto temp = pointMass.forces;
+				pointMass.forces += inputForce + (-friction * velocity * pointMass.mass);
+				pointMass.forces.y = temp.y + inputForce.y;
+				++start;
+			}
 
-			} else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-				applyForces(vec3(0.0f, 9.81f, 0.0f));
+			// while (start != pts.end() - 5) {
+			// 	PointMass &pointMass = *start;
+			// 	vec3 velocity = (pointMass.Position - pointMass.previousPosition)/dt;
+			// 	auto temp = pointMass.forces;
+			// 	pointMass.forces += -inputForce;
+			// 	pointMass.forces.y = temp.y + inputForce.y;
+			// 	++start;
+			// }
 
-			} else {
-				applyForces(vec3(0.0f, -9.81f, 0.0f));
+			// for (auto &pointMass : pts) {
+			// 	vec3 velocity = (pointMass.Position - pointMass.previousPosition)/dt;
+			// 	float friction = 0.5f;
+			// 	pointMass.forces += inputForce + (-friction * velocity * pointMass.mass);
+			// }
+		}
+
+		void appendForces(vec3 force) {
+			for (auto &pointMass : pts) {
+				pointMass.forces = force;
 			}
 		}
 
@@ -139,6 +182,7 @@ class Cage {
 				if (p.Position.y + pos.y < floorY) {
 					p.Position.y = floorY - pos.y;
 					p.forces = vec3(0, -9.8f, 0.0);
+
 				}
 			}
 		}
@@ -146,10 +190,8 @@ class Cage {
 
 		void applyForces(vec3 gravity) {
 			for (auto &pointMass : pts) {
-				pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
-
 				if (pointMass.Position.y + pos.y > 0) {
-					pointMass.forces += gravity * pointMass.mass;
+					pointMass.forces = gravity * pointMass.mass;
 				}
 			}
 		}
@@ -182,12 +224,46 @@ class Cage {
 				vec3 force_damping = -spring.kd * dot(vDiff, ab) / length(ab) * normalize(ab);
 				//cout << "spring force " << force << "N" << endl;
 
+				// float criticalDamping = 2.0f * sqrt(spring.k * (pm_a->mass + pm_b->mass) / 2.0f);
+				// vec3 force_damping = -criticalDamping * relativeVelAlongSpring * force_dir;\
+
 				pm_a->forces += force_damping;
 				pm_b->forces -= force_damping;
 			}
 		}
 
+		void friction(float deltaTime, float dampening_coefff) {
+			for (auto &spring : springs) {
+				PointMass *pm_a = &pts[spring.v0];
+				PointMass *pm_b = &pts[spring.v1];
+
+				vec3 ab = pm_a->Position - pm_b->Position;
+				float m_ab = length(ab);
+
+				if (m_ab < 1e-6f) continue;
+				vec3 force_dir = ab / m_ab; // normalize
+
+				// Calculate relative velocity
+				vec3 vA = (pm_a->Position - pm_a->previousPosition) / deltaTime;
+				vec3 vB = (pm_b->Position - pm_b->previousPosition) / deltaTime;
+				vec3 relativeVel = vA - vB;
+
+				float velAlongSpring = dot(relativeVel, force_dir);
+				vec3 dampingForce = -dampening_coefff * velAlongSpring * force_dir;
+
+				vec3 velPerpToSpring = relativeVel - velAlongSpring * force_dir;
+
+				vec3 shearDamping = -dampening_coefff * 0.5f * velPerpToSpring;
+
+				vec3 totalDamping = dampingForce + shearDamping;
+
+				pm_a->forces += totalDamping;
+				pm_b->forces -= totalDamping;
+			}
+		}
+
 		void verletStep(float deltaTime, float damping) {
+
 			for (auto &point_mass : pts) {
 				vec3 accel = point_mass.forces / point_mass.mass;
 
@@ -197,7 +273,7 @@ class Cage {
 								+ (v_dt)
 								+ accel * deltaTime * deltaTime;
 
-				/*if (&point_mass == &pts[1]) {
+				if (&point_mass == &pts[1]) {
 					cout << "force: (" << point_mass.forces.x << ", "
 						<< point_mass.forces.y << ", "
 						<< point_mass.forces.z << ") | ";
@@ -211,7 +287,7 @@ class Cage {
 						", " << nextPos.y + pos.y <<
 						", " << nextPos.z + pos.z << ") | ";
 					cout << "v dt = (" << v_dt.x << ", " << v_dt.y << ", " << v_dt.z << ")" << endl;
-				}*/
+				}
 
 				point_mass.previousPosition = point_mass.Position;
 				point_mass.Position = nextPos;
@@ -229,7 +305,6 @@ class Cage {
 
 				// Euclidean distance
 				const float distance = glm::distance(pm_a->Position, pm_b->Position);
-				// cout<<distance<<"\n";
 				vec3 ab_norm(0.0f, 1.0f, 0.0f);
 
 				if (distance < minDist) {
@@ -248,7 +323,6 @@ class Cage {
 					pm_a->Position = halfway - delta * maxDist / 2.0f;
 					pm_b->Position = halfway + delta * maxDist / 2.0f;
 				}
-				
 			}
 		}
 
