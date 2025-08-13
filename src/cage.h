@@ -154,14 +154,12 @@ class Cage {
 				++start;
 			}
 
-			// while (start != pts.end() - 5) {
-			// 	PointMass &pointMass = *start;
-			// 	vec3 velocity = (pointMass.Position - pointMass.previousPosition)/dt;
-			// 	auto temp = pointMass.forces;
-			// 	pointMass.forces += -inputForce;
-			// 	pointMass.forces.y = temp.y + inputForce.y;
-			// 	++start;
-			// }
+			while (start != pts.end()) {
+				PointMass &pointMass = *start;
+				auto temp = pointMass.forces;
+				pointMass.forces.y = temp.y + inputForce.y;
+				++start;
+			}
 
 			// for (auto &pointMass : pts) {
 			// 	vec3 velocity = (pointMass.Position - pointMass.previousPosition)/dt;
