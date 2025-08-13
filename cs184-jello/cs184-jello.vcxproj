@@ -29,7 +29,7 @@
     <ClInclude Include="..\src\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\shaders\lightSourceShader.fs" />
+    <None Include="..\src\shaders\lightSourceShader.frag" />
     <None Include="..\src\shaders\line_shader.frag" />
     <None Include="..\src\shaders\line_shader.vertex" />
     <None Include="..\src\shaders\model_shader.frag" />
@@ -40,6 +40,10 @@
     <None Include="..\src\shaders\pt_shader.vertex" />
     <None Include="..\src\shaders\shader.fs" />
     <None Include="..\src\shaders\shader.vs" />
+    <None Include="..\src\shaders\spotlight_shader.frag" />
+    <None Include="..\src\shaders\spotlight_shader.vertex" />
+    <None Include="..\src\shaders\trans.frag" />
+    <None Include="..\src\shaders\trans.vertex" />
     <None Include="..\src\shaders\translucent.frag" />
     <None Include="..\src\shaders\translucent.vert" />
   </ItemGroup>

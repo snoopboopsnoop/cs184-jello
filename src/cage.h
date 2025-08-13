@@ -271,7 +271,7 @@ class Cage {
 								+ (v_dt)
 								+ accel * deltaTime * deltaTime;
 
-				if (&point_mass == &pts[1]) {
+				/*if (&point_mass == &pts[1]) {
 					cout << "force: (" << point_mass.forces.x << ", "
 						<< point_mass.forces.y << ", "
 						<< point_mass.forces.z << ") | ";
@@ -285,7 +285,7 @@ class Cage {
 						", " << nextPos.y + pos.y <<
 						", " << nextPos.z + pos.z << ") | ";
 					cout << "v dt = (" << v_dt.x << ", " << v_dt.y << ", " << v_dt.z << ")" << endl;
-				}
+				}*/
 
 				point_mass.previousPosition = point_mass.Position;
 				point_mass.Position = nextPos;

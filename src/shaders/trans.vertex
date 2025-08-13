@@ -1,0 +1,15 @@
+#version 330 core
+layout(location=0) in vec3 aPos;
+
+uniform mat4 model, view, proj;
+
+out vec3 vPosWS;   // world-space position (for dFdx/dFdy)
+out vec3 vPosVS;   // view-space position (for view dir if you want)
+
+void main() {
+    vec4 pWS = model * vec4(aPos, 1.0);
+    vPosWS = pWS.xyz;
+    vec4 pVS = view * pWS;
+    vPosVS = pVS.xyz;
+    gl_Position = proj * pVS;
+}

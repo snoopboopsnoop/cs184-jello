@@ -182,15 +182,15 @@ int main() {
 
 	// floor plane
 	float plane[] = {
-		fclip, 0, fclip,
-		fclip, 0, -fclip,
-		-fclip, 0, fclip,
-		-fclip, 0, -fclip
+		 fclip, 0,  fclip,  0.0f, 1.0f, 0.0f,
+		 fclip, 0, -fclip,  0.0f, 1.0f, 0.0f,
+		-fclip, 0, fclip,   0.0f, 1.0f, 0.0f,
+		-fclip, 0, -fclip,  0.0f, 1.0f, 0.0f,
 	};
 
 	unsigned int planeIdx[] = {
-		0, 1, 2,
-		1, 2, 3
+		0, 2, 1,
+		3, 1, 2
 	};
 
 	//--------------------------------------------------------------
@@ -243,8 +243,11 @@ int main() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, floorEBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(planeIdx), planeIdx, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)3);
+	glEnableVertexAttribArray(1);
 
 	//--------------------------------------------------------------
 
@@ -257,7 +260,7 @@ int main() {
 
 	Shader ourShader("./shaders/model_shader.vertex", "./shaders/model_shader.frag");
 	Shader translucentShader("./shaders/translucent.vert", "./shaders/translucent.frag");
-	Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
+	//Shader lightSourceShader("./shaders/shader.vs", "./shaders/lightSourceShader.fs");
 	Shader ptShader("./shaders/pt_shader.vertex", "./shaders/pt_shader.frag");
 	Shader lineShader("./shaders/line_shader.vertex", "./shaders/line_shader.frag");
 	Shader planeShader("./shaders/plane_shader.vertex", "./shaders/plane_shader.frag");
@@ -312,14 +315,11 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//// wireframe mode (commented out bc translucency wants solid rendering)
 		// glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-		// Cube's spring forces should account for the resistance and point mass
-		// forces should be mutated because of that
 
 		// physics
 		tAccum += deltaTime;
@@ -327,12 +327,11 @@ int main() {
 		if (tAccum >= dt) {
 
 			if (runPhysics) {
-				/*jello.cage.applyWorldAndUserForces(window, dt);
-				jello.cage.springCorrectionForces(dt);
+				jello.cage.updatePhysics(window, dt);
 				jello.cage.verletStep(dt, 0.0f);
 				jello.cage.satisfyConstraints(0.0f);
 				jello.cage.springConstrain();
-				jello.cage.refreshMesh();*/
+				jello.cage.refreshMesh();
 
 				c.updatePhysics(window, dt);
 				c.verletStep(dt, 0.7f);
@@ -341,8 +340,6 @@ int main() {
 				c.refreshMesh();
 				//runPhysics = false;
 			}
-			// Verlet
-			
 			tAccum = 0;
 		}
 
@@ -361,7 +358,10 @@ int main() {
 		planeShader.setMat4("view", view);
 		planeShader.setMat4("projection", projection);
 		planeShader.setMat4("model", mat4(1.0f));
-		planeShader.setVec3("objColor", planeColor);
+
+		planeShader.setVec3("lightPos", vec3(0.0f, 5.0f, 0.0f));
+		planeShader.setVec3("lightColor", vec3(1.0f, 1.0f, 1.0f));
+		planeShader.setVec3("objectColor", planeColor);
 
 		glBindVertexArray(floorVAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -404,24 +404,6 @@ int main() {
 		c.Draw(mode);
 
 		//jello.Draw(mode);
-
-		// render PLATE model behind jello
-		//ourShader.use();
-		//ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
-		//vec3 plateDiffuseColor = vec3(0.6f, 0.6f, 0.6f);
-		//vec3 plateAmbientColor = plateDiffuseColor * vec3(0.6f);
-		//ourShader.setVec3("DiffuseColor", plateDiffuseColor);
-		//ourShader.setVec3("AmbientColor", plateAmbientColor);
-
-		//glm::mat4 plateModelMatrix = glm::mat4(1.0f);
-		//plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, 1.0f, 0.0f));
-		//plateModelMatrix = glm::scale(plateModelMatrix, glm::vec3(2.5f, 1.5f, 2.5f));
-		//ourShader.setMat4("model", plateModelMatrix);
-
-		//// no translucency blending for plate
-		//glDisable(GL_BLEND);
-		//plateModel.Draw(OBJECT);
-		//glEnable(GL_BLEND);
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
