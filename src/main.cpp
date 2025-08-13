@@ -25,14 +25,14 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 unsigned int loadTexture(char const* path);
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
-const unsigned int SCR_WIDTH = 1000;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH = 1920;
+const unsigned int SCR_HEIGHT = 1080;
 
 float lastX = SCR_WIDTH / 2, lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
 
 // camera
-Camera cam(vec3(0.0f, 3.0f, 10.0f));
+Camera cam(vec3(0.0f, 3.0f, 20.0f));
 
 // time
 float deltaTime = 0.0f;
@@ -313,7 +313,7 @@ int main() {
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(jelloShader, 3, 2, start);
+	Cube c(jelloShader, 2, 2, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
