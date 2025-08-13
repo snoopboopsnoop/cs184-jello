@@ -34,6 +34,10 @@ struct Mesh {
 		vector<Texture> textures;
 		BBox bbox;
 
+		Mesh() {
+
+		}
+
 		Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures) {
 			this->vertices = vertices;
 			this->indices = indices;
@@ -72,6 +76,10 @@ struct Mesh {
 			glBindVertexArray(VAO);
 			glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
+		}
+
+		void refreshMesh() {
+			setupMesh();
 		}
 
 	private:

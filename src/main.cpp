@@ -23,6 +23,7 @@ void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 unsigned int loadTexture(char const* path);
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 const unsigned int SCR_WIDTH = 1000;
 const unsigned int SCR_HEIGHT = 800;
@@ -84,6 +85,7 @@ int main() {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glfwSetCursorPosCallback(window, mouse_callback);
 	glfwSetScrollCallback(window, scroll_callback);
+	glfwSetKeyCallback(window, keyCallback);
 
 	// check that GLAD has loaded
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -287,7 +289,7 @@ int main() {
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(3, 2, start);
+	Cube c(jelloShader, 3, 2, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
@@ -376,9 +378,7 @@ int main() {
 		lineShader.setMat4("view", view);
 		lineShader.setMat4("projection", projection);
 		lineShader.setMat4("model", mat4(1.0f));
-
-		c.Draw(ptShader, lineShader);
-
+		
 		translucentShader.use();
 		translucentShader.setMat4("view", view);
 		translucentShader.setMat4("projection", projection);
@@ -386,7 +386,7 @@ int main() {
 		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
 		translucentShader.setMat4("model", model);
 
-		vec3 lightColor(1.0f, 1.0f, 1.0f);
+		vec3 lightColor(1.0f, 0.0f, 0.0f);
 		vec3 diffuseColor = lightColor * vec3(0.6f);
 		vec3 ambientColor = diffuseColor * vec3(0.8f);
 		vec3 specularColor = vec3(1.0f, 1.0f, 1.0f);
@@ -400,9 +400,14 @@ int main() {
 		vec3 jelloColor(0.9f, 0.3f, 0.3f);
 		translucentShader.setVec3("objColor", jelloColor);
 
-		jello.Draw(mode);
+		/*ourShader.use();
+		ourShader.setMat4("model", model);*/
+		c.Draw(mode);
 
-		//// render PLATE model behind jello
+		//jello.Draw(mode);
+
+		// render PLATE model behind jello
+		//ourShader.use();
 		//ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
 		//vec3 plateDiffuseColor = vec3(0.6f, 0.6f, 0.6f);
 		//vec3 plateAmbientColor = plateDiffuseColor * vec3(0.6f);
@@ -410,33 +415,14 @@ int main() {
 		//ourShader.setVec3("AmbientColor", plateAmbientColor);
 
 		//glm::mat4 plateModelMatrix = glm::mat4(1.0f);
-		//plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, -0.6f,-0.5f));
+		//plateModelMatrix = glm::translate(plateModelMatrix, glm::vec3(0.0f, 1.0f, 0.0f));
 		//plateModelMatrix = glm::scale(plateModelMatrix, glm::vec3(2.5f, 1.5f, 2.5f));
 		//ourShader.setMat4("model", plateModelMatrix);
 
 		//// no translucency blending for plate
 		//glDisable(GL_BLEND);
-		//plateModel.Draw(ourShader);
+		//plateModel.Draw(OBJECT);
 		//glEnable(GL_BLEND);
-
-		// render JELLO model
-		/*vec3 lightColor(1.0f, 1.0f, 1.0f);
-		vec3 diffuseColor = lightColor * vec3(0.6f);
-		vec3 ambientColor = diffuseColor * vec3(0.8f);
-		vec3 specularColor = vec3(1.0f, 1.0f, 1.0f);
-
-		translucentShader.use();
-		translucentShader.setVec3("DiffuseColor", diffuseColor);
-		translucentShader.setVec3("AmbientColor", ambientColor);
-		translucentShader.setVec3("SpecularColor", specularColor);
-		translucentShader.setVec3("lightPos", lightPos);
-		translucentShader.setVec3("eyePos", cam.Position);*/
-
-		/*glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
-		translucentShader.setMat4("model", model);
-
-		ourModel.Draw(mode);*/
 
 		glfwSwapBuffers(window); // swap color buffer
 		glfwPollEvents(); // checks if any events were triggered
@@ -474,15 +460,15 @@ void processInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
 		cam.ProcessKeyboard(DOWN, deltaTime);
 	}
-	if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
+	/*if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS) {
 		mode = OBJECT;
 	}
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
 		mode = PHYSICS;
-	}
-	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+	}*/
+	/*if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
 		runPhysics = !runPhysics;
-	}
+	}*/
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
@@ -539,4 +525,19 @@ unsigned int loadTexture(char const* path)
 	}
 
 	return textureID;
+}
+
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+	if (key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		if (mode == PHYSICS) mode = OBJECT;
+		else if (mode == OBJECT) mode = PHYSICS;
+	}
+	//else if (key == GLFW_KEY_O && action == GLFW_PRESS) {
+	//	mode = OBJECT;
+	//}
+	else if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+		runPhysics = !runPhysics;
+	}
 }

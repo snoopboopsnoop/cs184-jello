@@ -29,11 +29,6 @@ using namespace glm;
 
 unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
-enum DrawMode {
-    OBJECT,
-    PHYSICS,
-};
-
 class Model {
     public:
         Cage cage;
@@ -53,6 +48,7 @@ class Model {
                 }
             }
             if (mode == PHYSICS) {
+                shaders.ptMassShader->use();
                 cage.Draw(*(shaders.ptMassShader), *(shaders.springShader));
             }
         }
@@ -165,10 +161,6 @@ class Model {
                 }
 
                 cage = newCage;
-
-                
-
-                
                 cage.refreshMesh();
             }
         }

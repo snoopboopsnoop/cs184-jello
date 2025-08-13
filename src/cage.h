@@ -39,6 +39,11 @@ enum SpringType {
 	SURFACE
 };
 
+enum DrawMode {
+	OBJECT,
+	PHYSICS,
+};
+
 struct Spring {
     // the indices of the two point masses attached
     unsigned int v0;
@@ -112,18 +117,15 @@ class Cage {
 	void applyWorldAndUserForces(GLFWwindow* window, float dt) {
 			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 				applyForces(vec3(0, -9.81f, -3.0f));
-			} 
-			if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+			} else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 				applyForces(vec3(0, -9.81, 3.0f));
-			}
-			if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+			} else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 				applyForces(vec3(-3.0f, -9.81f, 0.0f));
 
-			} 
-			if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+			} else if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 				applyForces(vec3(3.0f, -9.81f, 0.0f));
-			} 
-			if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+
+			} else if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
 				applyForces(vec3(0.0f, 9.81f, 0.0f));
 
 			} else {
@@ -144,6 +146,8 @@ class Cage {
 
 		void applyForces(vec3 gravity) {
 			for (auto &pointMass : pts) {
+				pointMass.forces = vec3(0.0f, 0.0f, 0.0f);
+
 				if (pointMass.Position.y + pos.y > 0) {
 					pointMass.forces += gravity * pointMass.mass;
 				}
@@ -357,6 +361,8 @@ class Cage {
 
 class Cube : public Cage {
 	public:
+		ModelShader shaders;
+
 		Cube(unsigned int length = 1, unsigned int npl = 1, vec3 pos = vec3(0.0f, 0.0f, 0.0f)) {
 			if (npl == 0) {
 				cout << "ERROR::CUBE::INVALID_NPL" << endl;
@@ -370,9 +376,56 @@ class Cube : public Cage {
 			construct();
 		}
 
+		Cube(ModelShader& shader, unsigned int length = 1, unsigned int npl = 1, vec3 pos = vec3(0.0f, 0.0f, 0.0f))
+			: Cube(length, npl, pos) {
+			this->shaders = shader;
+			this->renderable = true;
+
+			vector<Vertex> vertices;
+			vector<Texture> textures;
+			for (PointMass& p : pts) {
+				Vertex v;
+				v.Position = p.Position;
+				v.Normal = vec3(0.0f, 0.0f, 0.0f);
+				v.TexCoords = vec2(0.0f, 0.0f);
+
+				vertices.push_back(v);
+			}
+
+			cubeMesh = Mesh(vertices, indices, textures);
+		}
+
+		void Draw(DrawMode& mode) {
+			refreshVertices();
+			if (renderable&& mode == OBJECT) {
+				shaders.matShader->use();
+				cubeMesh.Draw(*(shaders.matShader));
+			}
+			else {
+				shaders.ptMassShader->use();
+				Cage::Draw(*(shaders.ptMassShader), *(shaders.springShader));
+			}
+		}
+
+		void refreshVertices() {
+			cubeMesh.vertices.clear();
+			for (PointMass& p : pts) {
+				Vertex v;
+				v.Position = p.Position;
+				v.Normal = vec3(0.0f, 0.0f, 0.0f);
+				v.TexCoords = vec2(0.0f, 0.0f);
+
+				cubeMesh.vertices.push_back(v);
+			}
+			cubeMesh.refreshMesh();
+		}
+
 	private:
 		int nodesPerLength = 1;
 		int length = 1;
+		bool renderable = false;
+		vector<unsigned int> indices;
+		Mesh cubeMesh;
 
 		void construct() {
 			vector<PointMass> nodes;
@@ -410,6 +463,7 @@ class Cube : public Cage {
 						//cout << "edge, shear, body: " << rl_edge << " | " << rl_shear << " | " << rl_body << endl;
 
 						int currIdx = i * (nodesPerEdge * nodesPerEdge) + j * nodesPerEdge + k;
+
 						// connect z-axis edge
 						if (!isTopZ) {
 							int upIdx = currIdx + 1;
@@ -430,16 +484,49 @@ class Cube : public Cage {
 						if (!isTopZ && !isTopX) {
 							int crossIdx = currIdx + 1 + nodesPerEdge * nodesPerEdge;
 							springs.push_back(Spring(currIdx, crossIdx, SHEAR, rl_shear));
+
+							// add triangle face
+							if (isTopY || isBottomY) {
+								indices.push_back(currIdx);
+								indices.push_back(currIdx + nodesPerEdge * nodesPerEdge);
+								indices.push_back(crossIdx);
+
+								indices.push_back(currIdx);
+								indices.push_back(currIdx + 1);
+								indices.push_back(crossIdx);
+							}
 						}
 						// connect to (y + 1, z + 1) | across y-z face
 						if (!isTopZ && !isTopY) {
 							int crossIdx = currIdx + 1 + nodesPerEdge;
 							springs.push_back(Spring(currIdx, crossIdx, SHEAR, rl_shear));
+
+							// add triangle face
+							if (isTopX || isBottomX) {
+								indices.push_back(currIdx);
+								indices.push_back(currIdx + 1);
+								indices.push_back(crossIdx);
+
+								indices.push_back(currIdx);
+								indices.push_back(currIdx + nodesPerEdge);
+								indices.push_back(crossIdx);
+							}
 						}
 						// connect to (x + 1, y + 1) | across x-y face
 						if (!isTopX && !isTopY) {
 							int crossIdx = currIdx + nodesPerEdge + nodesPerEdge * nodesPerEdge;
 							springs.push_back(Spring(currIdx, crossIdx, SHEAR, rl_shear));
+
+							// add triangle face
+							if (isTopZ || isBottomZ) {
+								indices.push_back(currIdx);
+								indices.push_back(currIdx + nodesPerEdge * nodesPerEdge);
+								indices.push_back(crossIdx);
+
+								indices.push_back(currIdx);
+								indices.push_back(currIdx + nodesPerEdge);
+								indices.push_back(crossIdx);
+							}
 						}
 
 						// connect to (y + 1, z - 1) | across y-z face down
