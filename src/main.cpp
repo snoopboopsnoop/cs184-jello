@@ -51,8 +51,10 @@ const float nclip = 1.0f;
 const float dt = 1.0f / 60;
 float tAccum = 0.0f;
 
+bool runPhysics = false;
+
 // render settings
-DrawMode mode = OBJECT;
+DrawMode mode = PHYSICS;
 
 int main() {
 	// glfw initialization & configuration
@@ -262,7 +264,7 @@ int main() {
 	ModelShader jelloShader;
 	jelloShader.ptMassShader = &ptShader;
 	jelloShader.springShader = &lineShader;
-	jelloShader.matShader = &planeShader;
+	jelloShader.matShader = &translucentShader;
 
 	// plate shaders
 	ModelShader plateShader;
@@ -278,14 +280,14 @@ int main() {
 	// -----------
 
 	string modelPath = "resources/objects/jello/jello.obj";
-	Model ourModel(modelPath, jelloShader, false);
+	Model jello(modelPath, jelloShader, false);
 
 	string platePath = "resources/objects/plate/plate.obj";
 	Model plateModel(platePath, plateShader);
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(2, 1, start);
+	Cube c(3, 2, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
@@ -321,15 +323,25 @@ int main() {
 		tAccum += deltaTime;
 		//cout << "dt: " << deltaTime << " | accum: " << tAccum << endl;
 		if (tAccum >= dt) {
+
+			if (runPhysics) {
+				/*jello.cage.applyWorldAndUserForces(window, dt);
+				jello.cage.springCorrectionForces(dt);
+				jello.cage.verletStep(dt, 0.0f);
+				jello.cage.satisfyConstraints(0.0f);
+				jello.cage.springConstrain();
+				jello.cage.refreshMesh();*/
+
+				c.applyWorldAndUserForces(window, deltaTime);
+				c.springCorrectionForces(dt);
+				c.verletStep(dt, 0.7f);
+				c.satisfyConstraints(0.0f);
+				c.springConstrain();
+				c.refreshMesh();
+				//runPhysics = false;
+			}
 			// Verlet
-			// c.applyForces(vec3(0.0f, -9.81f, 0.0f));//(window);
-			// c.applyForces(vec3(0.0f, -9.81f, 0.0f));
-			c.applyWorldAndUserForces(window, deltaTime);
-			c.springCorrectionForces(dt);
-			c.verletStep(dt, 0.7f);
-			c.satisfyConstraints(0.0f);
-			c.springConstrain();
-			c.refreshMesh();
+			
 			tAccum = 0;
 		}
 
@@ -354,7 +366,7 @@ int main() {
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
-		//// render cube
+		// render cube
 		ptShader.use();
 		ptShader.setMat4("view", view);
 		ptShader.setMat4("projection", projection);
@@ -365,17 +377,30 @@ int main() {
 		lineShader.setMat4("projection", projection);
 		lineShader.setMat4("model", mat4(1.0f));
 
-		/*planeShader.use();
+		c.Draw(ptShader, lineShader);
+
+		translucentShader.use();
+		translucentShader.setMat4("view", view);
+		translucentShader.setMat4("projection", projection);
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 5.0f, 0.0f));
-		planeShader.setMat4("model", model);
+		translucentShader.setMat4("model", model);
+
+		vec3 lightColor(1.0f, 1.0f, 1.0f);
+		vec3 diffuseColor = lightColor * vec3(0.6f);
+		vec3 ambientColor = diffuseColor * vec3(0.8f);
+		vec3 specularColor = vec3(1.0f, 1.0f, 1.0f);
+
+		translucentShader.setVec3("lightPos", lightPos);
+		translucentShader.setVec3("eyePos", cam.Position);
+		translucentShader.setVec3("DiffuseColor", diffuseColor);
+		translucentShader.setVec3("AmbientColor", ambientColor);
+		translucentShader.setVec3("SpecularColor", specularColor);
 
 		vec3 jelloColor(0.9f, 0.3f, 0.3f);
-		planeShader.setVec3("objColor", jelloColor);
+		translucentShader.setVec3("objColor", jelloColor);
 
-		ourModel.Draw(mode);*/
-
-		c.Draw(ptShader, lineShader);
+		jello.Draw(mode);
 
 		//// render PLATE model behind jello
 		//ourShader.setVec3("objectColor", 0.9f, 0.9f, 0.9f);
@@ -454,6 +479,9 @@ void processInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
 		mode = PHYSICS;
+	}
+	if (glfwGetKey(window, GLFW_KEY_P) == GLFW_PRESS) {
+		runPhysics = !runPhysics;
 	}
 }
 

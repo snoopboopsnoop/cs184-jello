@@ -14,6 +14,8 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <map>
 
 #include "shader.h"
 #include "stb_image.h"
@@ -34,6 +36,8 @@ enum DrawMode {
 
 class Model {
     public:
+        Cage cage;
+
         Model(string path, ModelShader shaders, bool isRigid = true)
         {
             this->shaders = shaders;
@@ -66,9 +70,9 @@ class Model {
         vector<Mesh> meshes;
         string directory;
         vector<Texture> textures_loaded;
-        Cage cage;
         bool isRigid = true;
         ModelShader shaders;
+        unsigned int idxMeshVertices;
 
         void loadModel(string path) {
             Assimp::Importer importer;
@@ -99,7 +103,93 @@ class Model {
         }
 
         void processCage() {
-            cage = Cube(2, 1, vec3(0.0f, 3.0f, 0.0f));
+            for (const Mesh& mesh : meshes) {
+                vec3 minBox = mesh.bbox.min;
+                vec3 maxBox = mesh.bbox.max;
+                vec3 box = mesh.bbox.dim;
+                cout << "dim: " << box.x << ", " << box.y << ", " << box.z << endl;
+
+                float len = std::max(box.x, box.y);
+                len = ceil(std::max(len, box.z));
+                cout << "len " << len << endl;
+
+                cage = Cube(len, 2, vec3(0.0f, 5.0f, 0.0f));
+
+                Cage newCage;
+                map<int, int> idxMap; // maps old idx -> new idx
+                newCage.pos = vec3(0.0f, 5.0f, 0.0f);
+                for (int i = 0; i < cage.pts.size(); i++) {
+                    PointMass* p = &cage.pts[i];
+                    if (inMesh(p->Position, mesh)) {
+                        newCage.pts.push_back(*p);
+                        int newIdx = newCage.pts.size() - 1;
+                        idxMap[i] = newIdx;
+                        
+                    }
+                }
+                for (const Spring& s : cage.springs) {
+                    int v0_old = s.v0;
+                    int v1_old = s.v1;
+
+                    // check if both old idx were mapped (i.e. pt masses still exist)
+                    if (idxMap.count(v0_old) && idxMap.count(v1_old)) {
+                        Spring newSpring = Spring(idxMap[v0_old], idxMap[v1_old], s.type, s.restLength);
+                        newCage.springs.push_back(newSpring);
+                    }
+                }
+
+                idxMeshVertices = newCage.pts.size();
+                for (const Vertex& v : mesh.vertices) {
+                    newCage.pts.push_back(PointMass(v.Position, 1.0f));
+                    int newIdx = newCage.pts.size() - 1;
+
+                    // connect new mesh point to n closest cage vertices
+                    auto closest = min_element(newCage.pts.begin(), newCage.pts.begin() + idxMeshVertices,
+                        [v](const PointMass& a, const PointMass& b) {
+                            return length(v.Position - a.Position) < length(v.Position - b.Position);
+                        });
+                    int closestIdx = closest - newCage.pts.begin();
+
+                    float dist = length(v.Position - closest->Position);
+
+                    Spring newSpring = Spring(newIdx, closestIdx, SURFACE, dist);
+                    newCage.springs.push_back(newSpring);
+                }
+                for (int i = 0; i < mesh.indices.size() - 1; i += 2) {
+                    int v0 = mesh.indices[i] + idxMeshVertices;
+                    int v1 = mesh.indices[i + 1] + idxMeshVertices;
+                    float dist = glm::length(newCage.pts[v0].Position - newCage.pts[v1].Position);
+
+                    Spring newSpring = Spring(v0, v1, SURFACE, dist);
+                    newCage.springs.push_back(newSpring);
+                }
+
+                cage = newCage;
+
+                
+
+                
+                cage.refreshMesh();
+            }
+        }
+
+        bool inMesh(const vec3& p, const Mesh& mesh) {
+            Vertex closest = *min_element(mesh.vertices.begin(), mesh.vertices.end(), [p](const Vertex& a, const Vertex& b) {
+                return length(a.Position - p) < length(b.Position - p);
+                });
+            //cout << "closest mesh vertex to (" << p.x << ", " << p.y << ", " << p.z << ") is ("
+                //<< closest.Position.x << ", " << closest.Position.y << ", " << closest.Position.z << ") | ";
+
+            vec3 dir = normalize(closest.Position - p);
+            if (dot(closest.Normal, dir) < 0) {
+                //cout << "not in mesh" << endl;
+
+                return false;
+            }
+
+            //cout << "in mesh" << endl;
+
+            return true;
         }
 
         Mesh processMesh(aiMesh* mesh, const aiScene* scene) {
