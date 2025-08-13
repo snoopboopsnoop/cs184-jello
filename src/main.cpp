@@ -285,7 +285,7 @@ int main() {
 
 	// load some point masses
 	vec3 start(0.0f, 5.0f, 0.0f);
-	Cube c(2, 1, start);
+	Cube c(3, 2, start);
 	/*vector<PointMass> pts;
 	pts.push_back(PointMass(vec3(0.0f, -0.5f, 0.0f), 1));
 	pts.push_back(PointMass(vec3(0.0f, 0.5f, 0.0f), 1));
@@ -324,9 +324,12 @@ int main() {
 			// Verlet
 			// c.applyForces(vec3(0.0f, -9.81f, 0.0f));//(window);
 			// c.applyForces(vec3(0.0f, -9.81f, 0.0f));
-			c.applyWorldAndUserForces(window, deltaTime);
-			c.springCorrectionForces(dt);
+			c.updatePhysics(window, dt);
+			// c.applyWorldAndUserForces(window, deltaTime);
+			// c.springCorrectionForces(dt);
+			// c.friction(dt, 0.9f);
 			c.verletStep(dt, 0.7f);
+
 			c.satisfyConstraints(0.0f);
 			c.springConstrain();
 			c.refreshMesh();

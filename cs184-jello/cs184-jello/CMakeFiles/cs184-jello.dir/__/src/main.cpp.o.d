@@ -1096,6 +1096,7 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/array \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__memory/temp_value.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__split_buffer \
+  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/modelShader.h \
   /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/shader.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/filesystem \
@@ -1118,6 +1119,8 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/recursive_directory_iterator.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
+  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/mesh.h \
+  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/bbox.h \
   /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/stb_image.h \
   /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/camera.h \
   /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/model.h \
@@ -1178,7 +1181,6 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: \
   /opt/homebrew/include/assimp/anim.h \
   /opt/homebrew/include/assimp/metadata.h \
   /opt/homebrew/include/assimp/postprocess.h \
-  /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/mesh.h \
   /Users/isaiahtapia/cs184/cs184-jello/cs184-jello/../src/cage.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/random \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__random/bernoulli_distribution.h \

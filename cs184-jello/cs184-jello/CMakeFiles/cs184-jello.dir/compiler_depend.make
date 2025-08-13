@@ -1283,10 +1283,12 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/main.cpp.o: /Users/isaiahtapia/cs1
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/vec3.hpp \
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/vec4.hpp \
   /Users/isaiahtapia/cs184/cs184-jello/include/glm/vector_relational.hpp \
+  /Users/isaiahtapia/cs184/cs184-jello/src/bbox.h \
   /Users/isaiahtapia/cs184/cs184-jello/src/cage.h \
   /Users/isaiahtapia/cs184/cs184-jello/src/camera.h \
   /Users/isaiahtapia/cs184/cs184-jello/src/mesh.h \
   /Users/isaiahtapia/cs184/cs184-jello/src/model.h \
+  /Users/isaiahtapia/cs184/cs184-jello/src/modelShader.h \
   /Users/isaiahtapia/cs184/cs184-jello/src/shader.h \
   /Users/isaiahtapia/cs184/cs184-jello/src/stb_image.h \
   /opt/homebrew/include/assimp/Compiler/poppack1.h \
@@ -1587,9 +1589,13 @@ cs184-jello/CMakeFiles/cs184-jello.dir/__/src/stb_image.cpp.o: /Users/isaiahtapi
 
 /Users/isaiahtapia/cs184/cs184-jello/src/shader.h:
 
+/Users/isaiahtapia/cs184/cs184-jello/src/modelShader.h:
+
 /Users/isaiahtapia/cs184/cs184-jello/src/camera.h:
 
 /Users/isaiahtapia/cs184/cs184-jello/src/cage.h:
+
+/Users/isaiahtapia/cs184/cs184-jello/src/bbox.h:
 
 /Users/isaiahtapia/cs184/cs184-jello/include/glm/packing.hpp:
 
