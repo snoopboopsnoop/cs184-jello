@@ -143,10 +143,15 @@ class Cage {
 				inputForce.y += 9.81f  * 3;
 			}
 
-			float friction = 15.0f;
+			float friction = 20.0f;
+			const float EPS = 0.02f;
 			auto start = pts.begin();
 			while (start != pts.end()  - (pts.size() / 2)) {
+				
 				PointMass &pointMass = *start;
+				if (abs(pointMass.Position.y + pos.y) > EPS) friction = 0.0f;
+				else friction = 20.0f;
+
 				vec3 velocity = (pointMass.Position - pointMass.previousPosition)/dt;
 				auto temp = pointMass.forces;
 				pointMass.forces += inputForce + (-friction * velocity * pointMass.mass);
@@ -180,7 +185,16 @@ class Cage {
 				if (p.Position.y + pos.y < floorY) {
 					p.Position.y = floorY - pos.y;
 					p.forces = vec3(0, -9.8f, 0.0);
+				}
+				if (p.Position.x + pos.x > 10.0f) {
+					p.Position.x = 10.0f - pos.x;
+				}
+				if (p.Position.x + pos.x < -10.0f) {
+					p.Position.x = -10.0f - pos.x;
+				}
 
+				if (p.Position.z + pos.z < -10.0f) {
+					p.Position.z = -10.0f - pos.z;
 				}
 			}
 		}

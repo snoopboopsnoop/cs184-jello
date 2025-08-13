@@ -182,10 +182,17 @@ int main() {
 
 	// floor plane
 	float plane[] = {
-		 fclip, 0,  fclip,  0.0f, 1.0f, 0.0f,
-		 fclip, 0, -fclip,  0.0f, 1.0f, 0.0f,
-		-fclip, 0, fclip,   0.0f, 1.0f, 0.0f,
-		-fclip, 0, -fclip,  0.0f, 1.0f, 0.0f,
+		 fclip, 0,  fclip, 
+		 fclip, 0, -fclip,  
+		-fclip, 0, fclip,  
+		-fclip, 0, -fclip,  
+	};
+
+	float wall[] = {
+		 50, 0,  50,
+		 50, 0, -50,
+		 -50, 0, 50,
+		-50, 0, -50,
 	};
 
 	unsigned int planeIdx[] = {
@@ -243,11 +250,25 @@ int main() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, floorEBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(planeIdx), planeIdx, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)3);
-	glEnableVertexAttribArray(1);
+	// wall vao
+	unsigned int wallVAO, wallVBO, wallEBO;
+	glGenBuffers(1, &wallVBO);
+	glGenVertexArrays(1, &wallVAO);
+	glGenBuffers(1, &wallEBO);
+
+	glBindVertexArray(wallVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, wallVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(wall), wall, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, wallEBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(planeIdx), planeIdx, GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+	glEnableVertexAttribArray(0);
 
 	//--------------------------------------------------------------
 
@@ -315,7 +336,7 @@ int main() {
 		processInput(window); // handle inputs
 
 		//render
-		glClearColor(0.6f, 0.6f, 0.6f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//// wireframe mode (commented out bc translucency wants solid rendering)
@@ -359,11 +380,52 @@ int main() {
 		planeShader.setMat4("projection", projection);
 		planeShader.setMat4("model", mat4(1.0f));
 
-		planeShader.setVec3("lightPos", vec3(0.0f, 5.0f, 0.0f));
-		planeShader.setVec3("lightColor", vec3(1.0f, 1.0f, 1.0f));
 		planeShader.setVec3("objectColor", planeColor);
 
 		glBindVertexArray(floorVAO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		// render wall back
+		vec3 wallColor(0.6f, 0.6f, 0.6f);
+		planeShader.use();
+		planeShader.setMat4("view", view);
+		planeShader.setMat4("projection", projection);
+		mat4 wallModel(1.0f);
+		wallModel = rotate(wallModel, radians(90.0f), vec3(1.0f, 0.0f, 0.0f));
+		wallModel = translate(wallModel, vec3(0.0f, -10.0f, -5.0f));
+		planeShader.setMat4("model", wallModel);
+		planeShader.setVec3("objectColor", wallColor);
+
+		glBindVertexArray(wallVAO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		// render wall right
+		wallColor = vec3(0.4f, 0.4f, 0.7f);
+
+		wallModel = mat4(1.0f);
+		wallModel = rotate(wallModel, radians(90.0f), vec3(0.0f, 0.0f, 1.0f));
+		wallModel = translate(wallModel, vec3(5.0f, -10.0f, 0.0f));
+		planeShader.setMat4("model", wallModel);
+
+		planeShader.setVec3("objectColor", wallColor);
+
+		glBindVertexArray(wallVAO);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glBindVertexArray(0);
+
+		// render wall left
+		wallColor = vec3(0.7f, 0.4f, 0.4f);
+
+		wallModel = mat4(1.0f);
+		wallModel = rotate(wallModel, radians(90.0f), vec3(0.0f, 0.0f, 1.0f));
+		wallModel = translate(wallModel, vec3(5.0f, 10.0f, 0.0f));
+		planeShader.setMat4("model", wallModel);
+
+		planeShader.setVec3("objectColor", wallColor);
+
+		glBindVertexArray(wallVAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
